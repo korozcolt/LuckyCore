@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis Compras | RaffleApp</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec13",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .status-badge-approved { background-color: rgba(19, 236, 19, 0.1); color: #0d8a0d; }
+        .status-badge-pending { background-color: rgba(251, 191, 36, 0.1); color: #b45309; }
+        .status-badge-rejected { background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111811] dark:text-white transition-colors duration-200">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dbe6db] dark:border-[#2a3d2a] bg-white dark:bg-[#152a15] px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111811] dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">RaffleApp</h2>
+</div>
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Sorteos</a>
+<a class="text-sm font-bold leading-normal text-primary" href="#">Mis Compras</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Ayuda</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#618961] flex border-none bg-[#f0f4f0] dark:bg-[#1a331a] items-center justify-center pl-4 rounded-l-lg" data-size="20px">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-[#f0f4f0] dark:bg-[#1a331a] focus:ring-0 h-full placeholder:text-[#618961] px-4 rounded-r-lg text-sm font-normal" placeholder="Buscar sorteos..." value=""/>
+</div>
+</label>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-[#f0f4f0] dark:bg-[#1a331a] text-[#111811] dark:text-white hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2iGbP5Yn-AfM9S5t1aw8k1rsXP6flV8Sz9aJ8dIM2NRNBYnsnGovNLUQugMZ-a0_AFwX_cO45-rfT1ZW2Bt_y6IIPjsEmy3xcA5bGBc7aosEC2jLYQeMZswmw8YK18J59JhR_SJGn2rz1aLrlCrICICGlBmE6zHoJXrGDL_FAXgq4iK8d20AkU9fyfshUNFwAZ7ck7pWLNpJAJJWH2nJNyYOzqNVMgu509kODtzeUAy_RFFVt5Qf61crgF70yR1eal2PuD-BUaIS6");'></div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-4 py-8">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap items-center gap-2 mb-4">
+<a class="text-[#618961] text-sm font-medium hover:text-primary transition-colors" href="#">Inicio</a>
+<span class="material-symbols-outlined text-[#618961] text-sm">chevron_right</span>
+<a class="text-[#618961] text-sm font-medium hover:text-primary transition-colors" href="#">Mi Cuenta</a>
+<span class="material-symbols-outlined text-[#618961] text-sm">chevron_right</span>
+<span class="text-[#111811] dark:text-white text-sm font-bold">Mis Compras</span>
+</div>
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between items-end gap-3 mb-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111811] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Mis Compras</h1>
+<p class="text-[#618961] text-base font-normal">Consulta el historial de tus participaciones y estados de órdenes.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#152a15] border border-[#dbe6db] dark:border-[#2a3d2a] rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-[#1a331a] transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Descargar Reporte
+                </button>
+</div>
+</div>
+<!-- Tabs & Search/Filter Section -->
+<div class="bg-white dark:bg-[#152a15] rounded-xl border border-[#dbe6db] dark:border-[#2a3d2a] shadow-sm overflow-hidden mb-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between p-4 border-b border-[#dbe6db] dark:border-[#2a3d2a] gap-4">
+<div class="flex gap-4 overflow-x-auto no-scrollbar">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-primary text-primary pb-2 px-2" href="#">
+<p class="text-sm font-bold tracking-[0.015em]">Todos</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#618961] pb-2 px-2 hover:text-[#111811] dark:hover:text-white" href="#">
+<p class="text-sm font-bold tracking-[0.015em]">Aprobados</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#618961] pb-2 px-2 hover:text-[#111811] dark:hover:text-white" href="#">
+<p class="text-sm font-bold tracking-[0.015em]">Pendientes</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#618961] pb-2 px-2 hover:text-[#111811] dark:hover:text-white" href="#">
+<p class="text-sm font-bold tracking-[0.015em]">Rechazados</p>
+</a>
+</div>
+<div class="flex gap-2">
+<label class="flex flex-col min-w-[200px] h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#618961] flex border-none bg-background-light dark:bg-[#1a331a] items-center justify-center pl-3 rounded-l-lg">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="form-input flex w-full border-none bg-background-light dark:bg-[#1a331a] focus:ring-0 h-full placeholder:text-[#618961] px-3 rounded-r-lg text-xs" placeholder="Buscar por # de orden"/>
+</div>
+</label>
+<button class="flex items-center gap-2 px-3 h-10 bg-background-light dark:bg-[#1a331a] rounded-lg text-xs font-medium text-[#618961] hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Fecha
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-background-light/50 dark:bg-background-dark/30">
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Orden #</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Fecha</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Sorteo</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Tickets</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Total</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider">Estado</th>
+<th class="px-6 py-4 text-xs font-bold text-[#618961] uppercase tracking-wider text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#dbe6db] dark:divide-[#2a3d2a]">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1a331a] transition-colors">
+<td class="px-6 py-4 text-sm font-bold">#ORD-2024-001</td>
+<td class="px-6 py-4 text-sm text-[#618961]">15 Mayo, 2024</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center" data-alt="BMW M4 Competition Raffle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDy-5l-Su4f-AoWBOQyxldYTEwF9zPrDYyM7sEDYdIIV99XNczkjjE-GxP-7x1h4oiARO070fbS_NFhaiWi7yxNcPR3OjvCmOjjeBzp_QVXJAaP5-VvZ4DC8ysaezNg5tZnYmur8UmhqFcJh3dAM2vh9EV-MJOkGxCde4YLGBf5-Z_uCldEmqK1mB1efyOL72Qrs8HWFZocEKwzQvZLbNpJGqO56dzVjr5NuUUrEnOe1eHmc40VneCo4v4Ovrz6JkMTmwW5yfJStZvw');"></div>
+<span class="text-sm font-medium">BMW M4 Competition</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">10 Tickets</td>
+<td class="px-6 py-4 text-sm font-bold">$49.99</td>
+<td class="px-6 py-4">
+<span class="status-badge-approved px-2.5 py-1 rounded-full text-xs font-bold">Aprobado</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Ver detalle</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1a331a] transition-colors">
+<td class="px-6 py-4 text-sm font-bold">#ORD-2024-023</td>
+<td class="px-6 py-4 text-sm text-[#618961]">12 Mayo, 2024</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center" data-alt="Travel to Japan Giveaway" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJE8OQ_9Q_oVMXqOM82VdxGGHhpj4AGpmIARh0OUnA6NHL9NC9FqtiEDZQ3jQVXZLcSwciTV5p4xzV0BG4jY1eXDO5a_sirNf6KH6PKz2quOU8cH5Oo2dYdPYhtQVVb9VbNGf5ZjNBdyO2HnonbNJit3xPTOj28lszmsHi-de0LfEZ2ttQKca-dUa460NXfDnOIwbijHbOHfU9HLrdULEbn57VdoJytSzai1oAyhD6C5Wn2gDplDXSR6ucCQzPUiGi6UQH9ZWXTanz');"></div>
+<span class="text-sm font-medium">Viaje Todo Pago a Japón</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">5 Tickets</td>
+<td class="px-6 py-4 text-sm font-bold">$25.00</td>
+<td class="px-6 py-4">
+<span class="status-badge-pending px-2.5 py-1 rounded-full text-xs font-bold">Pendiente</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Ver detalle</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#1a331a] transition-colors">
+<td class="px-6 py-4 text-sm font-bold">#ORD-2024-045</td>
+<td class="px-6 py-4 text-sm text-[#618961]">08 Mayo, 2024</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center" data-alt="iPhone 15 Pro Max Raffle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEWNHYdopMKbs8QUxLYYHHf1S2M3R2ehClNicgDLyfKjH41RTIoWnZwI1Q4eE2PvarluRnkwKk19fz13BJWdtU6BeIr2pktLTjCphgDz-Hjwf5IR6MZ3KkiVB4XeTEHi5MvmT6rPeYrcU1nb7DYw-Y5oL2r1e_yAIOXbxXfvuauplifw_nfPts1ujYZXPMOdmvEDWe0piieGlIhwFIy7jFUNceWe3ZNzgHVEpuDMXJ5qfg5l0Wmb2x7421n-DQ_WGUU4tSwPQ43DUc');"></div>
+<span class="text-sm font-medium">iPhone 15 Pro Max</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">2 Tickets</td>
+<td class="px-6 py-4 text-sm font-bold">$10.00</td>
+<td class="px-6 py-4">
+<span class="status-badge-rejected px-2.5 py-1 rounded-full text-xs font-bold">Rechazado</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Ver detalle</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Mockup -->
+<div class="p-4 border-t border-[#dbe6db] dark:border-[#2a3d2a] flex items-center justify-between">
+<p class="text-xs text-[#618961]">Mostrando 3 de 45 pedidos</p>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg border border-[#dbe6db] dark:border-[#2a3d2a] hover:bg-gray-100 dark:hover:bg-[#1a331a] disabled:opacity-50">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg border border-[#dbe6db] dark:border-[#2a3d2a] bg-primary/10 text-primary font-bold text-xs px-4">1</button>
+<button class="p-2 rounded-lg border border-[#dbe6db] dark:border-[#2a3d2a] hover:bg-gray-100 dark:hover:bg-[#1a331a] text-xs px-4">2</button>
+<button class="p-2 rounded-lg border border-[#dbe6db] dark:border-[#2a3d2a] hover:bg-gray-100 dark:hover:bg-[#1a331a]">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State Section (Hidden by default, shown when no data) -->
+<div class="hidden flex flex-col items-center justify-center py-20 px-4 text-center bg-white dark:bg-[#152a15] rounded-xl border border-[#dbe6db] dark:border-[#2a3d2a]">
+<div class="w-64 h-64 mb-6 bg-primary/10 rounded-full flex items-center justify-center relative overflow-hidden">
+<span class="material-symbols-outlined text-[120px] text-primary/40">confirmation_number</span>
+<div class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
+</div>
+<h3 class="text-2xl font-bold mb-2">Aún no tienes tickets</h3>
+<p class="text-[#618961] max-w-sm mb-8">¡Empieza a participar en nuestros sorteos activos y podrías ser el próximo ganador!</p>
+<button class="bg-primary hover:bg-primary/90 text-[#111811] font-bold px-8 py-3 rounded-lg flex items-center gap-2 transition-all transform hover:scale-105">
+<span class="material-symbols-outlined">rocket_launch</span>
+                Ver Sorteos Activos
+            </button>
+</div>
+<!-- Support Banner -->
+<div class="mt-12 p-6 bg-primary/10 dark:bg-primary/5 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/20">
+<div class="flex items-center gap-4">
+<div class="bg-primary p-3 rounded-full text-white">
+<span class="material-symbols-outlined text-2xl">contact_support</span>
+</div>
+<div class="text-left">
+<h4 class="font-bold text-lg">¿Tienes problemas con una orden?</h4>
+<p class="text-sm text-[#618961]">Nuestro equipo de soporte está disponible 24/7 para ayudarte.</p>
+</div>
+</div>
+<button class="bg-white dark:bg-[#152a15] px-6 py-2 rounded-lg font-bold text-sm border border-[#dbe6db] dark:border-[#2a3d2a] hover:shadow-md transition-all">
+                Contactar Soporte
+            </button>
+</div>
+</main>
+<footer class="mt-20 border-t border-[#dbe6db] dark:border-[#2a3d2a] py-12 px-10 bg-white dark:bg-[#152a15]">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="size-5 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="font-bold text-xl">RaffleApp</span>
+</div>
+<p class="text-sm text-[#618961] leading-relaxed">La plataforma más segura y transparente para participar en sorteos exclusivos.</p>
+</div>
+<div>
+<h5 class="font-bold mb-6">Plataforma</h5>
+<ul class="space-y-4 text-sm text-[#618961]">
+<li><a class="hover:text-primary transition-colors" href="#">Sorteos Activos</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Ganadores</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cómo Funciona</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-6">Cuenta</h5>
+<ul class="space-y-4 text-sm text-[#618961]">
+<li><a class="hover:text-primary transition-colors" href="#">Mi Perfil</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Mis Tickets</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Seguridad</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-6">Legal</h5>
+<ul class="space-y-4 text-sm text-[#618961]">
+<li><a class="hover:text-primary transition-colors" href="#">Términos y Condiciones</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacidad</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Juego Responsable</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-[#dbe6db] dark:border-[#2a3d2a] text-center text-xs text-[#618961]">
+            © 2024 RaffleApp. Todos los derechos reservados.
+        </div>
+</footer>
+</body></html>

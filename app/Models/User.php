@@ -3,16 +3,22 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +57,56 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user can access Filament admin panel.
+     *
+     * @see ALCANCE.md §2 - Solo Admin y Soporte acceden al panel
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Check if user has any of the admin roles
+        return $this->hasAnyRole([
+            UserRole::Support->value,
+            UserRole::Admin->value,
+            UserRole::SuperAdmin->value,
+        ]);
+    }
+
+    /**
+     * Check if the user is a super admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(UserRole::SuperAdmin->value);
+    }
+
+    /**
+     * Check if the user is an admin (admin or super admin).
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasAnyRole([
+            UserRole::Admin->value,
+            UserRole::SuperAdmin->value,
+        ]);
+    }
+
+    /**
+     * Check if the user is support staff.
+     */
+    public function isSupport(): bool
+    {
+        return $this->hasRole(UserRole::Support->value);
+    }
+
+    /**
+     * Check if the user is a regular customer.
+     */
+    public function isCustomer(): bool
+    {
+        return $this->hasRole(UserRole::Customer->value) || $this->roles->isEmpty();
+    }
+
+    /**
      * Get the user's initials
      */
     public function initials(): string
@@ -60,5 +116,39 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    // Relationships
+
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class)->whereNull('converted_at');
+    }
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    // Helper methods
+
+    public function getActiveCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function getTicketsForRaffle(int $raffleId): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->tickets()->where('raffle_id', $raffleId)->get();
     }
 }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sorteos - Gana Increíbles Premios</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400,100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec13",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111811] dark:text-white transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#e0e4e0] dark:border-[#203a20] px-6 lg:px-20 py-4">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-xl font-black tracking-tight">SORTEOS</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Inicio</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Sorteos</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Cómo funciona</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Mis Compras</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1 right-1 bg-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full text-black">2</span>
+</button>
+<button class="hidden sm:flex bg-primary text-black px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide hover:opacity-90 transition-all">
+                    Iniciar Sesión
+                </button>
+<div class="size-10 rounded-full border-2 border-primary/20 bg-cover bg-center" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgYgMxJd2NzSraclz9bcQY7tjNZ05OzfJc-4RLHq7FnLR-fibkxh0s0HY0d3wx_Y_P4HeWirRk6NUYUztCPlhHPg9Q-U60M0vIyReTMdTAYYQPf6jigzV3xogGXfyYc4GgbmBiY3bT12h92yzFkhioOoGalGqPuDHn1UhI0B0zpsov9eXznmja20f8PJ8cU3MIcGlr7GofsxTVKPoqh6umEIKkBKtbtnHwqDcMpPVMiLuR6UX7s5WukjY1sBOht1OS78OWH-MN0KKg");'></div>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-6 lg:px-20">
+<!-- Hero Section -->
+<section class="py-12 lg:py-20">
+<div class="bg-white dark:bg-[#1a2e1a] rounded-xl overflow-hidden shadow-2xl border border-gray-100 dark:border-[#2a442a] flex flex-col lg:flex-row">
+<!-- Image Side -->
+<div class="lg:w-3/5 h-[300px] lg:h-auto bg-cover bg-center" data-alt="Shiny metallic luxury sports car in studio" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDxXonetJ7STev_theu6idGIEcvZbBhYkhjO3kI1SgdYX0Xv6W8S6hEevHCqmIuPhf9VnkIcCs6ocbYPARP3srK2QD1qjzOXp3ESBtFUSLD71w3C9XribGX4Uv1E_3NifTTpcqBF7xtJ-S3vp3B_Zq15B-5pG0nsuPTvhM7Dv44kNFA8lAYwNwN0DgRB_oQpx3kbLxH7S7E9eaM3kdd3exi0SnuyQF2CsgM5HFCJG3Vfdl8iScgE4LUW4kkA_geuugnbBYhEL988rpc");'>
+<div class="m-6">
+<span class="bg-primary/90 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Destacado</span>
+</div>
+</div>
+<!-- Content Side -->
+<div class="lg:w-2/5 p-8 lg:p-12 flex flex-col justify-center gap-6">
+<div>
+<h2 class="text-3xl lg:text-4xl font-black leading-tight mb-4">Porsche 911 GT3: Sorteo Especial</h2>
+<p class="text-gray-600 dark:text-gray-300">¡Cumple tu sueño! Participa por este auto de lujo totalmente nuevo. Solo 5,000 boletos disponibles.</p>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-sm font-bold text-gray-500 uppercase tracking-tighter">Progreso de venta</span>
+<span class="text-2xl font-black text-primary">85%</span>
+</div>
+<div class="h-3 w-full bg-gray-100 dark:bg-[#102210] rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</div>
+<div class="flex justify-between items-center bg-background-light dark:bg-background-dark p-4 rounded-lg">
+<div>
+<p class="text-[10px] uppercase font-bold text-gray-400">Precio Boleto</p>
+<p class="text-xl font-black">$10.00 MXN</p>
+</div>
+<button class="bg-primary text-black px-8 py-3 rounded-lg font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-primary/20">
+                                COMPRAR AHORA
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Header -->
+<div class="flex items-center justify-between mb-8 border-b border-gray-100 dark:border-[#2a442a] pb-4">
+<h3 class="text-2xl font-bold tracking-tight">Sorteos Activos</h3>
+<a class="text-primary text-sm font-bold hover:underline flex items-center gap-1" href="#">
+                Ver todos <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<!-- Featured Raffles Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-[#1a2e1a] border border-gray-100 dark:border-[#2a442a] rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="h-48 bg-cover bg-center overflow-hidden" data-alt="Latest iPhone model on a colorful gradient" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBESqfw5zUiniYCEmvXGZv6_a7TDlJSuFcAZeG8-rkQK5vEUUbLGhKwz3uoslNbUDLmGoik5_OiUd9CGiLdSoSZm4bNpZAVRDeM3s1PxmTWykZK_P3yDhnKnhEL-9kKRdu4ARp6gVqrFOFcBGiCMYz3Vxo-il073kE25qXgePaXkyODnq3RZIFiSXaZSVfz-RQm7KKmAi-J5kkSm8J4n5SWCOo7vIFcW0mkJBaMHwsp4I3X6JA_0GjSOxYkKDlhM0MlZGSerS2i2An_");'>
+<div class="p-3">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded font-bold uppercase">Tecnología</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="text-lg font-bold mb-1">iPhone 15 Pro Max</h4>
+<p class="text-primary font-black text-sm mb-4">$2.00 MXN x boleto</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-[11px] font-bold uppercase text-gray-400">
+<span>Vendido</span>
+<span>45%</span>
+</div>
+<div class="h-1.5 w-full bg-gray-100 dark:bg-[#102210] rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+</div>
+</div>
+<button class="w-full bg-[#f0f4f0] dark:bg-[#203a20] text-black dark:text-white py-3 rounded-lg font-bold text-sm group-hover:bg-primary group-hover:text-black transition-colors">
+                        Ver detalles
+                    </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-[#1a2e1a] border border-gray-100 dark:border-[#2a442a] rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="h-48 bg-cover bg-center overflow-hidden" data-alt="MacBook Pro on a wooden desk with coffee" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrVGgS2GnU2Cnib60tL8CdAMPZ6QmhxxBm1SS-aOlp70mwCe-IWmQatXhast2dTdEF-Da3nGQVi0FKA6wS3r82UBbYNc4X8nqvG7OsYMV0dJYgQ2Z06YRfcjLjCQmGAj3Vw-tJ__YtsbA_PiXyXFSsX8J3-QYq05tsJ2XZczAV3zvO3NaIn23o2DX83TYIHbtkRmuCA2psYxMO3ZlBeVboVpcuJxOeKNAOFfuzqW4_WDTZrZD9J82d3-0wSXGY06edzx1YGCzxgS93");'>
+<div class="p-3">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded font-bold uppercase">Productividad</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="text-lg font-bold mb-1">MacBook Pro M3</h4>
+<p class="text-primary font-black text-sm mb-4">$5.00 MXN x boleto</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-[11px] font-bold uppercase text-gray-400">
+<span>Vendido</span>
+<span>12%</span>
+</div>
+<div class="h-1.5 w-full bg-gray-100 dark:bg-[#102210] rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 12%;"></div>
+</div>
+</div>
+<button class="w-full bg-[#f0f4f0] dark:bg-[#203a20] text-black dark:text-white py-3 rounded-lg font-bold text-sm group-hover:bg-primary group-hover:text-black transition-colors">
+                        Ver detalles
+                    </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-[#1a2e1a] border border-gray-100 dark:border-[#2a442a] rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="h-48 bg-cover bg-center overflow-hidden" data-alt="Tropical beach with turquoise water and palms" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGu1wb8Fx_o3uXEIJCsw5TrUVkTZMn8-Sb6-ackuwg0BAmOR21sxYBZ_lnqudkubMPeNUKY14vTPiwxro7ZMM2s1-rVwbG8-b5HvuTk8bQpeTApzn9YJaVkMix_uqN5Jfsk2yHl_EgJVOQ4JkfMBvMuNs5NLXNZ6f7m1VwIKPzI5J9bLURekFK-kBs69M9cVDUWltcvJS-YqUQIPT3G-TU0szdTJn4npAEYFAuBVchCZqiuqou3x0_5G05aWAP1BvviUSFI4EID8h6");'>
+<div class="p-3">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded font-bold uppercase">Viajes</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="text-lg font-bold mb-1">Viaje todo incluido a Cancún</h4>
+<p class="text-primary font-black text-sm mb-4">$3.00 MXN x boleto</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-[11px] font-bold uppercase text-gray-400">
+<span>Vendido</span>
+<span>70%</span>
+</div>
+<div class="h-1.5 w-full bg-gray-100 dark:bg-[#102210] rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 70%;"></div>
+</div>
+</div>
+<button class="w-full bg-[#f0f4f0] dark:bg-[#203a20] text-black dark:text-white py-3 rounded-lg font-bold text-sm group-hover:bg-primary group-hover:text-black transition-colors">
+                        Ver detalles
+                    </button>
+</div>
+</div>
+</section>
+<!-- How it works section -->
+<section class="bg-primary/5 dark:bg-primary/5 rounded-3xl p-12 mb-20">
+<div class="text-center mb-12">
+<h3 class="text-3xl font-black mb-2">¿Cómo Funciona?</h3>
+<p class="text-gray-500">Participar es muy sencillo y seguro</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center">
+<div class="size-16 rounded-full bg-primary flex items-center justify-center mb-6 shadow-xl shadow-primary/20 text-black">
+<span class="material-symbols-outlined text-3xl">touch_app</span>
+</div>
+<h5 class="text-lg font-bold mb-2">1. Elige tu premio</h5>
+<p class="text-sm text-gray-500">Explora nuestros sorteos activos y selecciona el que más te guste.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="size-16 rounded-full bg-primary flex items-center justify-center mb-6 shadow-xl shadow-primary/20 text-black">
+<span class="material-symbols-outlined text-3xl">payments</span>
+</div>
+<h5 class="text-lg font-bold mb-2">2. Compra tus boletos</h5>
+<p class="text-sm text-gray-500">Selecciona cuántos boletos quieres y paga de forma segura.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="size-16 rounded-full bg-primary flex items-center justify-center mb-6 shadow-xl shadow-primary/20 text-black">
+<span class="material-symbols-outlined text-3xl">emoji_events</span>
+</div>
+<h5 class="text-lg font-bold mb-2">3. ¡Gana!</h5>
+<p class="text-sm text-gray-500">Espera a que se complete la venta y consulta el ganador en vivo.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="bg-white dark:bg-[#102210] border-t border-gray-100 dark:border-[#203a20] py-10">
+<div class="max-w-[1200px] mx-auto px-6 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3 opacity-50">
+<div class="size-6 text-black dark:text-white">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-sm font-bold tracking-tighter">SORTEOS © 2024</span>
+</div>
+<div class="flex gap-8 text-sm font-medium text-gray-400">
+<a class="hover:text-primary" href="#">Términos</a>
+<a class="hover:text-primary" href="#">Privacidad</a>
+<a class="hover:text-primary" href="#">Contacto</a>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-gray-400 hover:text-primary cursor-pointer">public</span>
+<span class="material-symbols-outlined text-gray-400 hover:text-primary cursor-pointer">verified_user</span>
+<span class="material-symbols-outlined text-gray-400 hover:text-primary cursor-pointer">shield</span>
+</div>
+</div>
+</footer>
+</body></html>

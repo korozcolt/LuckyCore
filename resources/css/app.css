@@ -9,7 +9,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Custom brand colors from mockups */
+    --color-primary: #13ec13;
+    --color-primary-dark: #0fc80f;
+    --color-bg-light: #f6f8f6;
+    --color-bg-dark: #102210;
+    --color-text-dark: #111811;
+    --color-text-muted: #618961;
+    --color-border-light: #dbe6db;
+    --color-border-dark: #2a3e2a;
+    --color-card-dark: #1a2e1a;
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -23,9 +34,9 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
-    --color-accent-foreground: var(--color-white);
+    --color-accent: var(--color-primary);
+    --color-accent-content: var(--color-primary);
+    --color-accent-foreground: var(--color-text-dark);
 }
 
 @layer theme {

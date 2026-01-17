@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Raffle Admin Dashboard Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec13",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Be Vietnam Pro", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111811] dark:text-white transition-colors duration-200">
+<div class="flex min-h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-[#dbe6db] dark:border-[#2a3a2a] bg-white dark:bg-[#152a15] hidden md:flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary font-bold">confirmation_number</span>
+</div>
+<div>
+<h1 class="text-[#111811] dark:text-white text-base font-bold leading-none">Raffle Admin</h1>
+<p class="text-[#618961] dark:text-[#a0c0a0] text-xs font-normal">Management Portal</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-[#111811] dark:text-white border border-primary/20" href="#">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a]" href="#">
+<span class="material-symbols-outlined">local_activity</span>
+<span class="text-sm font-medium">Sorteos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a]" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-sm font-medium">Órdenes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Usuarios</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a]" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm font-medium">CMS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Configuración</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#dbe6db] dark:border-[#2a3a2a]">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Avatar image of the admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSVwSRL8YMk7fVNVj6fMG9fKifq8yMSp4f9cPx0Uag2XFF16n64F8gRduos7UHBuVpqhk-ctrRK9mikilYihuGiTbhWk9_CKxZ43uc7J2vFwxqTt1vgyF-ZbMrZ-uZ2jnB73TMszqMn18VRu4YdDf1PDLFHXuXaRprfJIZVVI-2VImWwX6p0oZymrDlqGBWpziYSL5XsNrKUjVfW7jihV3GEEn2a0pjt2vRrN8zbubvv3IPmuze3fDrbzZqW2oo0JkCE0uYc0FdTXn");'></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold dark:text-white">Admin User</p>
+<p class="text-xs text-[#618961] dark:text-[#a0c0a0]">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Top Bar Navigation -->
+<header class="h-16 border-b border-[#dbe6db] dark:border-[#2a3a2a] bg-white dark:bg-[#152a15] flex items-center justify-between px-8">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#618961]">search</span>
+<input class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/50 text-[#111811] dark:text-white placeholder:text-[#618961]" placeholder="Search orders, raffles..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a] rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#152a15]"></span>
+</button>
+<button class="p-2 text-[#111811] dark:text-white hover:bg-[#f0f4f0] dark:hover:bg-[#1a3a1a] rounded-lg">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Page Heading & Quick Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-[#111811] dark:text-white text-3xl font-black tracking-tight">Dashboard Overview</h2>
+<p class="text-[#618961] dark:text-[#a0c0a0] text-sm mt-1">Real-time performance metrics and recent activity.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#1a3a1a] border border-[#dbe6db] dark:border-[#2a3a2a] rounded-lg text-sm font-bold text-[#111811] dark:text-white hover:bg-[#f0f4f0]">
+<span class="material-symbols-outlined text-lg">pending_actions</span>
+                            Ver Órdenes Pendientes
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-black rounded-lg text-sm font-bold hover:brightness-95 transition-all">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                            Crear Nuevo Sorteo
+                        </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-[#152a15] p-6 rounded-xl border border-[#dbe6db] dark:border-[#2a3a2a] shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<p class="text-[#618961] dark:text-[#a0c0a0] text-sm font-medium">Total Sales (Today)</p>
+<span class="flex items-center text-emerald-600 text-xs font-bold bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                +12.5%
+                            </span>
+</div>
+<p class="text-[#111811] dark:text-white text-3xl font-black">$4,250.00</p>
+<p class="text-[#618961] dark:text-[#a0c0a0] text-xs mt-2">vs $3,780 yesterday</p>
+</div>
+<div class="bg-white dark:bg-[#152a15] p-6 rounded-xl border border-[#dbe6db] dark:border-[#2a3a2a] shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<p class="text-[#618961] dark:text-[#a0c0a0] text-sm font-medium">Tickets Sold vs Remaining</p>
+<span class="material-symbols-outlined text-[#618961]">confirmation_number</span>
+</div>
+<p class="text-[#111811] dark:text-white text-3xl font-black">1,240 / 5,000</p>
+<div class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] h-2 rounded-full mt-4">
+<div class="bg-primary h-2 rounded-full" style="width: 24.8%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#152a15] p-6 rounded-xl border border-[#dbe6db] dark:border-[#2a3a2a] shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<p class="text-[#618961] dark:text-[#a0c0a0] text-sm font-medium">Active Raffles</p>
+<span class="material-symbols-outlined text-[#618961]">rocket_launch</span>
+</div>
+<p class="text-[#111811] dark:text-white text-3xl font-black">12</p>
+<p class="text-[#618961] dark:text-[#a0c0a0] text-xs mt-2">3 ending in next 24h</p>
+</div>
+</div>
+<!-- Main Grid Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Recent Orders Table -->
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold dark:text-white">Recent Orders</h3>
+<button class="text-primary text-sm font-bold hover:underline">Ver todo</button>
+</div>
+<div class="bg-white dark:bg-[#152a15] rounded-xl border border-[#dbe6db] dark:border-[#2a3a2a] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#f6f8f6] dark:bg-[#1a3a1a] border-b border-[#dbe6db] dark:border-[#2a3a2a]">
+<th class="px-4 py-3 text-xs font-bold text-[#618961] uppercase">Order ID</th>
+<th class="px-4 py-3 text-xs font-bold text-[#618961] uppercase">User</th>
+<th class="px-4 py-3 text-xs font-bold text-[#618961] uppercase">Raffle</th>
+<th class="px-4 py-3 text-xs font-bold text-[#618961] uppercase text-right">Amount</th>
+<th class="px-4 py-3 text-xs font-bold text-[#618961] uppercase text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#dbe6db] dark:divide-[#2a3a2a]">
+<tr class="hover:bg-[#fcfdfc] dark:hover:bg-[#1e2f1e]">
+<td class="px-4 py-4 text-sm font-medium">#ORD-2849</td>
+<td class="px-4 py-4 text-sm">Marcos Silva</td>
+<td class="px-4 py-4 text-sm text-[#618961]">iPhone 15 Pro Max</td>
+<td class="px-4 py-4 text-sm text-right font-bold">$25.00</td>
+<td class="px-4 py-4 text-center">
+<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-emerald-700 dark:text-primary">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfdfc] dark:hover:bg-[#1e2f1e]">
+<td class="px-4 py-4 text-sm font-medium">#ORD-2850</td>
+<td class="px-4 py-4 text-sm">Elena Torres</td>
+<td class="px-4 py-4 text-sm text-[#618961]">Tesla Model 3</td>
+<td class="px-4 py-4 text-sm text-right font-bold">$150.00</td>
+<td class="px-4 py-4 text-center">
+<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-emerald-700 dark:text-primary">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfdfc] dark:hover:bg-[#1e2f1e]">
+<td class="px-4 py-4 text-sm font-medium">#ORD-2851</td>
+<td class="px-4 py-4 text-sm">Julian Rossi</td>
+<td class="px-4 py-4 text-sm text-[#618961]">MacBook Air M3</td>
+<td class="px-4 py-4 text-sm text-right font-bold">$40.00</td>
+<td class="px-4 py-4 text-center">
+<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500">Pending</span>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfdfc] dark:hover:bg-[#1e2f1e]">
+<td class="px-4 py-4 text-sm font-medium">#ORD-2852</td>
+<td class="px-4 py-4 text-sm">Sofia Méndez</td>
+<td class="px-4 py-4 text-sm text-[#618961]">iPhone 15 Pro Max</td>
+<td class="px-4 py-4 text-sm text-right font-bold">$25.00</td>
+<td class="px-4 py-4 text-center">
+<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-emerald-700 dark:text-primary">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-[#fcfdfc] dark:hover:bg-[#1e2f1e]">
+<td class="px-4 py-4 text-sm font-medium">#ORD-2853</td>
+<td class="px-4 py-4 text-sm">Ricardo Gomez</td>
+<td class="px-4 py-4 text-sm text-[#618961]">Sony PS5 Slim</td>
+<td class="px-4 py-4 text-sm text-right font-bold">$10.00</td>
+<td class="px-4 py-4 text-center">
+<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/20 text-emerald-700 dark:text-primary">Paid</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Active Raffles Progress -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold dark:text-white">Active Progress</h3>
+<button class="material-symbols-outlined text-[#618961] hover:text-primary">more_horiz</button>
+</div>
+<div class="bg-white dark:bg-[#152a15] rounded-xl border border-[#dbe6db] dark:border-[#2a3a2a] p-5 space-y-6 shadow-sm">
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-bold dark:text-white truncate pr-2">Tesla Model 3 - Red Edition</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-[#618961] font-medium uppercase tracking-wider">
+<span>850 sold</span>
+<span>150 left</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-bold dark:text-white truncate pr-2">iPhone 15 Pro Max Giveaway</span>
+<span class="text-primary font-bold">42%</span>
+</div>
+<div class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 42%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-[#618961] font-medium uppercase tracking-wider">
+<span>210 sold</span>
+<span>290 left</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-bold dark:text-white truncate pr-2">Sony PS5 Slim Bundle</span>
+<span class="text-primary font-bold">12%</span>
+</div>
+<div class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 12%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-[#618961] font-medium uppercase tracking-wider">
+<span>120 sold</span>
+<span>880 left</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-bold dark:text-white truncate pr-2">Travel Kit Luxury Pack</span>
+<span class="text-primary font-bold">67%</span>
+</div>
+<div class="w-full bg-[#f0f4f0] dark:bg-[#1a3a1a] h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 67%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-[#618961] font-medium uppercase tracking-wider">
+<span>67 sold</span>
+<span>33 left</span>
+</div>
+</div>
+<button class="w-full py-2 bg-[#f0f4f0] dark:bg-[#1a3a1a] text-[#111811] dark:text-white rounded-lg text-sm font-bold hover:bg-[#dbe6db] dark:hover:bg-[#2a3a2a]">
+                                Ver todos los sorteos
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

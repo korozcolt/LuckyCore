@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp add chrome-devtools --scope user npx chrome-devtools-mcp@latest)",
+      "WebFetch(domain:filamentphp.com)",
+      "Bash(composer require:*)",
+      "Bash(php artisan:*)",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__click",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

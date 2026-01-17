@@ -127,6 +127,25 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Payments Log Channel
+        |--------------------------------------------------------------------------
+        |
+        | Dedicated channel for payment-related logs including webhooks,
+        | transaction processing, and payment provider interactions.
+        | @see ARQUITECTURA.md §1 - Logs: canal payments + correlation_id
+        |
+        */
+
+        'payments' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/payments.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_PAYMENTS_DAYS', 90),
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];

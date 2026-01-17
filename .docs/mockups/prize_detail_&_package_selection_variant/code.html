@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RafflePro | Prize Detail &amp; Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec13",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111811] dark:text-white transition-colors duration-200">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-background-dark border-b border-solid border-[#f0f4f0] dark:border-[#1a2e1a] px-4 md:px-10 py-3">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4 text-[#111811] dark:text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-tight dark:text-white">RafflePro</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">All Raffles</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Winners</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">How it Works</a>
+</nav>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-[#111811] text-sm font-bold tracking-wide">
+                    Sign In
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Full-Width Hero Header -->
+<div class="relative w-full h-[450px] overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Luxury white SUV parked in front of a modern mansion" style='background-image: linear-gradient(to top, rgba(16, 34, 16, 0.9) 0%, rgba(16, 34, 16, 0.2) 60%, rgba(0, 0, 0, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlNss2d8VZ50bscXkFb3Clxwtcptlvh8vwdvBMiOX4KXUFdXPSmVOShj3zz6gzyMt9tSMqDZZl2MBZsG3xUo0FtmQrLq5KDKgsxShLHggHRNovT6P7jWOm1PrsSRR-QZimV361MKKmhn8jXa0RK0_qIAWL54Oa7rlZqvqkqqYES4c5NpMA_tdIYECZbmyUaMBIgU86Fhv3WY00u6wQ7waK-3oEiu0YxizlqrJucj0ztCV9c2aDixX56NkuyvKywGFOsdIAKnU2nzVf");'></div>
+<div class="relative max-w-[1280px] mx-auto h-full flex flex-col justify-end px-10 pb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<span class="bg-primary/90 text-black text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Active Raffle</span>
+<h1 class="text-white text-4xl md:text-5xl font-extrabold leading-none">Luxury SUV + $10,000 Cash</h1>
+<p class="text-white/80 text-lg max-w-xl">Enter for a chance to drive away in a brand new 2024 model plus a cash bonus for your adventures.</p>
+</div>
+<!-- Timer Component inside Hero -->
+<div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+<p class="text-white text-xs font-bold uppercase mb-2 text-center tracking-widest">Ending In</p>
+<div class="flex gap-3">
+<div class="flex flex-col items-center min-w-[60px]">
+<div class="bg-primary flex h-12 w-full items-center justify-center rounded-lg shadow-lg">
+<p class="text-black text-xl font-bold">02</p>
+</div>
+<p class="text-white text-[10px] mt-1 font-bold uppercase">Days</p>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<div class="bg-primary flex h-12 w-full items-center justify-center rounded-lg shadow-lg">
+<p class="text-black text-xl font-bold">14</p>
+</div>
+<p class="text-white text-[10px] mt-1 font-bold uppercase">Hrs</p>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<div class="bg-primary flex h-12 w-full items-center justify-center rounded-lg shadow-lg">
+<p class="text-black text-xl font-bold">45</p>
+</div>
+<p class="text-white text-[10px] mt-1 font-bold uppercase">Min</p>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<div class="bg-primary flex h-12 w-full items-center justify-center rounded-lg shadow-lg">
+<p class="text-black text-xl font-bold">12</p>
+</div>
+<p class="text-white text-[10px] mt-1 font-bold uppercase">Sec</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-10 flex flex-col lg:flex-row gap-8">
+<!-- Left Side: Selection & Info -->
+<div class="flex-1 space-y-8">
+<!-- Progress Bar Component -->
+<div class="bg-white dark:bg-[#1a2e1a] rounded-xl p-6 shadow-sm border border-[#f0f4f0] dark:border-[#2a3e2a]">
+<div class="flex gap-6 justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">local_activity</span>
+<p class="text-[#111811] dark:text-white text-lg font-bold">Tickets Sold</p>
+</div>
+<p class="text-[#111811] dark:text-primary text-lg font-bold">85%</p>
+</div>
+<div class="h-3 rounded-full bg-[#dbe6db] dark:bg-background-dark overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</div>
+<p class="text-[#618961] dark:text-primary/70 text-sm mt-3 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                        Hurry! Only 150 tickets remaining.
+                    </p>
+</div>
+<!-- Section Header -->
+<div class="border-l-4 border-primary pl-4">
+<h2 class="text-[#111811] dark:text-white text-2xl font-extrabold tracking-tight">Select Your Ticket Package</h2>
+<p class="text-[#618961] dark:text-white/60">Choose the best bundle and increase your chances of winning.</p>
+</div>
+<!-- Ticket Package Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Individual -->
+<div class="group relative cursor-pointer border-2 border-[#f0f4f0] dark:border-[#2a3e2a] hover:border-primary p-6 rounded-xl bg-white dark:bg-[#1a2e1a] transition-all">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-xl font-bold dark:text-white">Single Entry</h3>
+<span class="text-2xl font-extrabold text-primary">$5</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-6">1 ticket entry into the draw.</p>
+<button class="w-full py-2 border border-primary text-primary group-hover:bg-primary group-hover:text-black font-bold rounded-lg transition-colors">Select</button>
+</div>
+<!-- Starter -->
+<div class="group relative cursor-pointer border-2 border-[#f0f4f0] dark:border-[#2a3e2a] hover:border-primary p-6 rounded-xl bg-white dark:bg-[#1a2e1a] transition-all">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-xl font-bold dark:text-white">Starter Pack</h3>
+<span class="text-2xl font-extrabold text-primary">$20</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-6">5 ticket entries. (Save $5)</p>
+<button class="w-full py-2 border border-primary text-primary group-hover:bg-primary group-hover:text-black font-bold rounded-lg transition-colors">Select</button>
+</div>
+<!-- Best Value -->
+<div class="group relative cursor-pointer border-2 border-primary p-6 rounded-xl bg-primary/5 dark:bg-primary/10 transition-all ring-1 ring-primary ring-opacity-30">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-black text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-lg">Best Value</div>
+<div class="flex justify-between items-start mb-4 pt-2">
+<h3 class="text-xl font-bold dark:text-white">Pro Pack</h3>
+<span class="text-2xl font-extrabold text-primary">$50</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-6">15 ticket entries. (Get 5 FREE)</p>
+<button class="w-full py-2 bg-primary text-black font-bold rounded-lg hover:brightness-110 transition-all">Selected</button>
+</div>
+<!-- Ultimate -->
+<div class="group relative cursor-pointer border-2 border-[#f0f4f0] dark:border-[#2a3e2a] hover:border-primary p-6 rounded-xl bg-white dark:bg-[#1a2e1a] transition-all">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-xl font-bold dark:text-white">Ultimate Pack</h3>
+<span class="text-2xl font-extrabold text-primary">$100</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-6">50 ticket entries. (Save $150!)</p>
+<button class="w-full py-2 border border-primary text-primary group-hover:bg-primary group-hover:text-black font-bold rounded-lg transition-colors">Select</button>
+</div>
+</div>
+<!-- FAQ Section -->
+<div class="pt-10 space-y-6">
+<h3 class="text-xl font-bold dark:text-white border-b border-[#f0f4f0] dark:border-[#2a3e2a] pb-4">Common Questions</h3>
+<div class="space-y-4">
+<details class="group bg-white dark:bg-[#1a2e1a] rounded-lg p-4 border border-[#f0f4f0] dark:border-[#2a3e2a] open:ring-1 open:ring-primary/30" open="">
+<summary class="flex items-center justify-between font-bold cursor-pointer list-none dark:text-white">
+                                How is the winner chosen?
+                                <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-3 leading-relaxed">
+                                Our winners are selected through a fully transparent, certified random draw process. We use a verified Random Number Generator (RNG) and live stream the selection process on our social media channels.
+                            </p>
+</details>
+<details class="group bg-white dark:bg-[#1a2e1a] rounded-lg p-4 border border-[#f0f4f0] dark:border-[#2a3e2a]">
+<summary class="flex items-center justify-between font-bold cursor-pointer list-none dark:text-white">
+                                When is the draw taking place?
+                                <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-3 leading-relaxed">
+                                The draw will take place exactly 24 hours after the countdown ends or when all tickets are sold out, whichever happens first.
+                            </p>
+</details>
+<details class="group bg-white dark:bg-[#1a2e1a] rounded-lg p-4 border border-[#f0f4f0] dark:border-[#2a3e2a]">
+<summary class="flex items-center justify-between font-bold cursor-pointer list-none dark:text-white">
+                                Can I enter from outside the country?
+                                <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-3 leading-relaxed">
+                                Please check our Terms &amp; Conditions for the list of eligible countries. Generally, international participation is allowed, but prize delivery logistics may vary.
+                            </p>
+</details>
+</div>
+</div>
+</div>
+<!-- Sticky Sidebar -->
+<aside class="w-full lg:w-[350px]">
+<div class="sticky top-24 space-y-4">
+<div class="bg-white dark:bg-[#1a2e1a] rounded-xl shadow-xl border border-[#f0f4f0] dark:border-[#2a3e2a] overflow-hidden">
+<div class="bg-[#111811] p-4 text-white">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+                                Your Selection
+                            </h4>
+</div>
+<div class="p-6 space-y-6">
+<div class="flex justify-between items-center border-b border-[#f0f4f0] dark:border-[#2a3e2a] pb-4">
+<div>
+<p class="font-bold dark:text-white">Pro Pack</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">15 Tickets</p>
+</div>
+<p class="font-bold text-primary">$50.00</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="text-gray-500 dark:text-gray-400">Subtotal</span>
+<span class="dark:text-white">$50.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-500 dark:text-gray-400">Processing Fee</span>
+<span class="dark:text-white">$0.00</span>
+</div>
+<div class="flex justify-between items-center pt-4">
+<span class="text-lg font-extrabold dark:text-white">Total</span>
+<span class="text-2xl font-black text-primary">$50.00</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:brightness-110 text-black py-4 rounded-xl font-extrabold text-lg shadow-lg flex items-center justify-center gap-2 group transition-all">
+<span>SECURE CHECKOUT</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<div class="flex flex-col gap-2 items-center">
+<p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Powered by Stripe</p>
+<div class="flex gap-2 opacity-50">
+<span class="material-symbols-outlined text-sm dark:text-white">credit_card</span>
+<span class="material-symbols-outlined text-sm dark:text-white">lock</span>
+<span class="material-symbols-outlined text-sm dark:text-white">verified_user</span>
+</div>
+</div>
+</div>
+</div>
+<!-- WhatsApp Support Widget -->
+<a class="flex items-center gap-3 bg-[#25D366] text-white p-4 rounded-xl shadow-md hover:brightness-105 transition-all" href="#">
+<div class="bg-white/20 rounded-full p-2">
+<svg class="size-6 fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+</div>
+<div>
+<p class="font-bold text-sm">Need help?</p>
+<p class="text-xs opacity-90">Chat with us on WhatsApp</p>
+</div>
+</a>
+</div>
+</aside>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="bg-[#111811] text-white py-12 px-4 mt-12">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h3 class="font-bold text-lg">RafflePro</h3>
+</div>
+<div class="flex gap-8 text-sm text-white/60">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Refund Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<p class="text-sm text-white/40">© 2024 RafflePro Inc. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

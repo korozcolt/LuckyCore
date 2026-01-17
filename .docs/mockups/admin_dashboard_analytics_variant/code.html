@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard Analytics Variant</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec13",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111811]">
+<div class="flex h-screen overflow-hidden">
+<!-- Dark Sidebar Navigation -->
+<aside class="w-64 bg-[#0a0f0a] text-white flex flex-col justify-between py-6 px-4">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-2">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-black">
+<span class="material-symbols-outlined text-2xl font-bold">token</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">RaffleAdmin</h1>
+</div>
+<nav class="flex flex-col gap-2">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-black">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="text-sm font-medium">Raffles</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Transactions</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Users</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-medium">Analytics</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</div>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-white/5 rounded-xl p-4">
+<p class="text-xs text-gray-400 mb-1">Current Plan</p>
+<p class="text-sm font-bold text-primary">Enterprise Pro</p>
+<div class="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full w-3/4"></div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 bg-primary text-black font-bold py-3 rounded-lg hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm">Create New Raffle</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="h-16 border-b border-[#dbe6db] bg-white flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-6 flex-1">
+<h2 class="text-lg font-bold">Analytics Dashboard</h2>
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+<input class="w-full bg-background-light border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary" placeholder="Search raffles, transactions, users..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 hover:bg-background-light rounded-lg relative">
+<span class="material-symbols-outlined text-gray-600">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 hover:bg-background-light rounded-lg">
+<span class="material-symbols-outlined text-gray-600">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-gray-200 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold">Alex Rivera</p>
+<p class="text-xs text-gray-500">Super Admin</p>
+</div>
+<div class="size-10 rounded-full bg-center bg-cover border border-gray-200" data-alt="Profile picture of a professional admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChILO2QXeSxtslrNU0wfGhsfZSKKBfQ6ovZhZXMWLE-arp-d8rDFJiR0EffSqw1KUaMzTlCslTe8IoxAQ-8enASYPa3LMQtkeibF5CwGHMgP2FTxLHNZdhhNK8k036Nop3HG5QZxSbxYkjT6UBjZlRIXGZhsTQlst5rFCXl6Ert60hYFy8fP8VKcawROI_vdiaS5uWwq748O84bmmK0JOOlVR70Jdqn0_j4UMuxtUEJ1a1CILIaHc_sVXqDeyvVJBkBHaF3SWN3Cqv");'></div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8 flex gap-8">
+<!-- Dashboard Analytics Section -->
+<div class="flex-1 flex flex-col gap-8">
+<!-- Stats Grid -->
+<div class="grid grid-cols-4 gap-4">
+<div class="bg-white p-6 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm text-gray-500 font-medium">Total Revenue</p>
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<h3 class="text-2xl font-bold">$124,500</h3>
+<p class="text-xs text-primary font-bold mt-1">+12.5% <span class="text-gray-400 font-normal">vs last month</span></p>
+</div>
+<div class="bg-white p-6 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm text-gray-500 font-medium">Active Users</p>
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<h3 class="text-2xl font-bold">12,840</h3>
+<p class="text-xs text-primary font-bold mt-1">+5.2% <span class="text-gray-400 font-normal">vs last month</span></p>
+</div>
+<div class="bg-white p-6 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm text-gray-500 font-medium">Tickets Sold</p>
+<span class="material-symbols-outlined text-primary">confirmation_number</span>
+</div>
+<h3 class="text-2xl font-bold">45,200</h3>
+<p class="text-xs text-primary font-bold mt-1">+8.1% <span class="text-gray-400 font-normal">vs last month</span></p>
+</div>
+<div class="bg-white p-6 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-sm text-gray-500 font-medium">Conv. Rate</p>
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<h3 class="text-2xl font-bold">3.2%</h3>
+<p class="text-xs text-red-500 font-bold mt-1">-0.4% <span class="text-gray-400 font-normal">vs last month</span></p>
+</div>
+</div>
+<!-- Main Area Chart Performance -->
+<div class="bg-white p-6 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold">Revenue Performance</h3>
+<p class="text-sm text-gray-500">Sales volume and traffic over the last 30 days</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-xs font-bold bg-background-light rounded-lg">Week</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-primary text-black rounded-lg">Month</button>
+<button class="px-3 py-1.5 text-xs font-bold bg-background-light rounded-lg">Year</button>
+</div>
+</div>
+<div class="h-64 relative w-full mt-4">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<defs>
+<lineargradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#13ec13;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#13ec13;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 Q100,140 200,120 T400,100 T600,60 T800,80 T1000,40 L1000,200 L0,200 Z" fill="url(#gradient)"></path>
+<path d="M0,150 Q100,140 200,120 T400,100 T600,60 T800,80 T1000,40" fill="none" stroke="#13ec13" stroke-width="3"></path>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between px-2 pt-4 border-t border-dashed border-gray-100 mt-4 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+<span>Day 1</span><span>Day 5</span><span>Day 10</span><span>Day 15</span><span>Day 20</span><span>Day 25</span><span>Day 30</span>
+</div>
+</div>
+</div>
+<!-- Raffle Performance Grid -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold">Raffle Performance</h3>
+<button class="text-sm font-bold text-primary hover:underline">View all raffles</button>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white p-5 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 rounded-lg bg-background-light flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-600">apartment</span>
+</div>
+<span class="px-2 py-1 bg-primary/20 text-green-700 text-[10px] font-bold rounded uppercase">Live</span>
+</div>
+<h4 class="font-bold mb-1">Luxury Villa Getaway</h4>
+<p class="text-xs text-gray-500 mb-6">Ends in 4 days • $5.00/ticket</p>
+<div class="flex items-center justify-center mb-6 relative">
+<svg class="size-24 transform -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f4f0" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#13ec13" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-lg font-bold">75%</span>
+<span class="text-[8px] text-gray-400 uppercase font-bold">Sold</span>
+</div>
+</div>
+<div class="flex justify-between text-xs font-medium pt-4 border-t border-gray-50">
+<span class="text-gray-500">Tickets Sold</span>
+<span class="font-bold">7,500 / 10,000</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white p-5 rounded-xl border border-[#dbe6db] shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 rounded-lg bg-background-light flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-600">directions_car</span>
+</div>
+<span class="px-2 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded uppercase">Hot</span>
+</div>
+<h4 class="font-bold mb-1">2024 Tesla Model S</h4>
+<p class="text-xs text-gray-500 mb-6">Ends in 12 hours • $25.00/ticket</p>
+<div class="flex items-center justify-center mb-6 relative">
+<svg class="size-24 transform -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f4f0" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#13ec13" stroke-dasharray="251.2" stroke-dashoffset="20.1" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-lg font-bold">92%</span>
+<span class="text-[8px] text-gray-400 uppercase font-bold">Sold</span>
+</div>
+</div>
+<div class="flex justify-between text-xs font-medium pt-4 border-t border-gray-50">
+<span class="text-gray-500">Tickets Sold</span>
+<span class="font-bold">4,600 / 5,000</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white p-5 rounded-xl border border-[#dbe6db] shadow-sm opacity-90 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 rounded-lg bg-background-light flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-600">watch</span>
+</div>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-[10px] font-bold rounded uppercase">Draft</span>
+</div>
+<h4 class="font-bold mb-1">Rolex Submariner</h4>
+<p class="text-xs text-gray-500 mb-6">Scheduled for Monday • $50.00/ticket</p>
+<div class="flex items-center justify-center mb-6 relative">
+<svg class="size-24 transform -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f4f0" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#dbe6db" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-lg font-bold">0%</span>
+<span class="text-[8px] text-gray-400 uppercase font-bold">Sold</span>
+</div>
+</div>
+<div class="flex justify-between text-xs font-medium pt-4 border-t border-gray-50">
+<span class="text-gray-500">Tickets Sold</span>
+<span class="font-bold">0 / 2,500</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Alert Center Sidebar -->
+<aside class="w-80 flex flex-col gap-6">
+<div class="bg-white rounded-xl border border-[#dbe6db] shadow-sm flex flex-col overflow-hidden">
+<div class="p-4 border-b border-[#f0f4f0] flex items-center justify-between">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 text-[20px]">warning</span>
+                                System Alerts
+                            </h3>
+<span class="size-5 bg-red-100 text-red-600 text-[10px] font-bold rounded-full flex items-center justify-center">4</span>
+</div>
+<div class="flex-1 p-4 space-y-4">
+<!-- Alert Item 1 -->
+<div class="flex gap-3 p-3 rounded-lg bg-orange-50 border border-orange-100">
+<span class="material-symbols-outlined text-orange-600 text-[20px] shrink-0">priority_high</span>
+<div>
+<p class="text-sm font-bold text-orange-800">Raffle nearing completion</p>
+<p class="text-xs text-orange-700 mt-0.5">Tesla Model S raffle is at 92% capacity.</p>
+<p class="text-[10px] text-orange-600/60 mt-2 font-bold uppercase">2 mins ago</p>
+</div>
+</div>
+<!-- Alert Item 2 -->
+<div class="flex gap-3 p-3 rounded-lg bg-red-50 border border-red-100">
+<span class="material-symbols-outlined text-red-600 text-[20px] shrink-0">error</span>
+<div>
+<p class="text-sm font-bold text-red-800">Failed payment webhook</p>
+<p class="text-xs text-red-700 mt-0.5">Stripe connection issue detected for user #4920.</p>
+<p class="text-[10px] text-red-600/60 mt-2 font-bold uppercase">14 mins ago</p>
+</div>
+</div>
+<!-- Alert Item 3 -->
+<div class="flex gap-3 p-3 rounded-lg hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-gray-400 text-[20px] shrink-0">inventory_2</span>
+<div>
+<p class="text-sm font-bold">Low inventory warning</p>
+<p class="text-xs text-gray-500 mt-0.5">Ticket batch ID-291 is running low on sequential IDs.</p>
+<p class="text-[10px] text-gray-400 mt-2 font-bold uppercase">1 hour ago</p>
+</div>
+</div>
+<!-- Alert Item 4 -->
+<div class="flex gap-3 p-3 rounded-lg hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-gray-400 text-[20px] shrink-0">person_add</span>
+<div>
+<p class="text-sm font-bold">Identity verification required</p>
+<p class="text-xs text-gray-500 mt-0.5">Winner of "MacBook Pro" raffle needs KYC approval.</p>
+<p class="text-[10px] text-gray-400 mt-2 font-bold uppercase">3 hours ago</p>
+</div>
+</div>
+</div>
+<button class="w-full p-4 text-sm font-bold text-center border-t border-[#f0f4f0] text-gray-500 hover:text-black hover:bg-background-light">
+                            View All History
+                        </button>
+</div>
+<!-- Quick Insights Panel -->
+<div class="bg-[#0a0f0a] rounded-xl p-6 text-white">
+<h4 class="font-bold mb-4">Traffic Insights</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs text-gray-400">Mobile Users</span>
+<span class="text-xs font-bold">65%</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<div class="flex justify-between items-center mt-4">
+<span class="text-xs text-gray-400">Direct Search</span>
+<span class="text-xs font-bold">28%</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full">
+<div class="bg-blue-400 h-full w-[28%]"></div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-white/10">
+<p class="text-xs text-gray-400 italic">"Peak activity usually occurs between 7:00 PM and 9:00 PM EST."</p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>
