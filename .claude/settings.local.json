@@ -20,7 +20,18 @@
       "mcp__laravel-boost__search-docs",
       "WebFetch(domain:docs.wompi.co)",
       "WebSearch",
-      "Bash(vendor/bin/pint:*)"
+      "Bash(vendor/bin/pint:*)",
+      "mcp__chrome-devtools__fill_form",
+      "Bash(npm install:*)",
+      "Bash(composer remove:*)",
+      "mcp__laravel-boost__get-absolute-url",
+      "Bash(composer dump-autoload:*)",
+      "mcp__laravel-boost__last-error",
+      "mcp__laravel-boost__read-log-entries",
+      "mcp__chrome-devtools__press_key",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__laravel-boost__list-routes"
     ]
   },
   "enabledMcpjsonServers": [

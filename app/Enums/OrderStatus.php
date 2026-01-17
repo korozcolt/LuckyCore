@@ -55,4 +55,13 @@ enum OrderStatus: string implements HasColor, HasLabel
     {
         return in_array($this, [self::Failed, self::Expired]);
     }
+
+    /**
+     * Check if an order with this status can be paid.
+     * Includes pending orders (first time) and failed/expired (retry).
+     */
+    public function canPay(): bool
+    {
+        return in_array($this, [self::Pending, self::Failed, self::Expired]);
+    }
 }

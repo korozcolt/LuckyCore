@@ -79,7 +79,7 @@ class PaymentGatewayForm
                                 // Wompi credentials
                                 Section::make('Credenciales de Wompi')
                                     ->description('Obtén estas credenciales desde el panel de Wompi')
-                                    ->visible(fn (Get $get) => $get('provider') === PaymentProvider::Wompi->value)
+                                    ->visible(fn (Get $get) => static::isProvider($get, PaymentProvider::Wompi))
                                     ->columns(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('credentials.public_key')
@@ -112,7 +112,7 @@ class PaymentGatewayForm
                                 // MercadoPago credentials
                                 Section::make('Credenciales de MercadoPago')
                                     ->description('Obtén estas credenciales desde el panel de MercadoPago Developers')
-                                    ->visible(fn (Get $get) => $get('provider') === PaymentProvider::MercadoPago->value)
+                                    ->visible(fn (Get $get) => static::isProvider($get, PaymentProvider::MercadoPago))
                                     ->columns(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('credentials.public_key')
@@ -129,7 +129,7 @@ class PaymentGatewayForm
                                 // ePayco credentials
                                 Section::make('Credenciales de ePayco')
                                     ->description('Obtén estas credenciales desde el panel de ePayco')
-                                    ->visible(fn (Get $get) => $get('provider') === PaymentProvider::Epayco->value)
+                                    ->visible(fn (Get $get) => static::isProvider($get, PaymentProvider::Epayco))
                                     ->columns(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('credentials.public_key')
@@ -183,5 +183,24 @@ class PaymentGatewayForm
                     ])
                     ->columnSpanFull(),
             ]);
+    }
+
+    /**
+     * Check if the current provider matches the expected provider.
+     * Handles both enum instances and string values.
+     */
+    protected static function isProvider(Get $get, PaymentProvider $expected): bool
+    {
+        $provider = $get('provider');
+
+        if (! $provider) {
+            return false;
+        }
+
+        if ($provider instanceof PaymentProvider) {
+            return $provider === $expected;
+        }
+
+        return $provider === $expected->value;
     }
 }

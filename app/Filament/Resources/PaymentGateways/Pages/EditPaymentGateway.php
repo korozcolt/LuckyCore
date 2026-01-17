@@ -16,4 +16,30 @@ class EditPaymentGateway extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // Expand credentials array for form fields
+        $credentials = $data['credentials'] ?? [];
+
+        if ($credentials instanceof \Illuminate\Database\Eloquent\Casts\ArrayObject) {
+            $credentials = $credentials->toArray();
+        }
+
+        if (is_array($credentials)) {
+            $data['credentials'] = $credentials;
+        }
+
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Filter out empty credential values
+        if (isset($data['credentials']) && is_array($data['credentials'])) {
+            $data['credentials'] = array_filter($data['credentials'], fn ($value) => $value !== null && $value !== '');
+        }
+
+        return $data;
+    }
 }

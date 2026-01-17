@@ -7,7 +7,6 @@ namespace App\Livewire\Pages\Payment;
 use App\Enums\PaymentProvider;
 use App\Models\Order;
 use App\Models\OrderEvent;
-use App\Payments\DTOs\PaymentIntentData;
 use App\Payments\PaymentManager;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
@@ -25,8 +24,10 @@ class Index extends Component
     public int $orderId;
 
     public ?string $selectedProvider = null;
+
     public bool $processing = false;
-    public ?PaymentIntentData $paymentIntent = null;
+
+    public ?array $paymentIntent = null;
 
     public function mount(Order $order, PaymentManager $paymentManager): void
     {
@@ -38,7 +39,7 @@ class Index extends Component
             return;
         }
 
-        if (! $order->canRetry()) {
+        if (! $order->canPay()) {
             session()->flash('error', 'Esta orden no puede ser procesada.');
             $this->redirect(route('orders.show', $order), navigate: true);
 
@@ -92,19 +93,22 @@ class Index extends Component
             $paymentProvider = $paymentManager->provider($provider);
 
             // Create payment intent
-            $this->paymentIntent = $paymentProvider->createPaymentIntent($this->order);
+            $intentData = $paymentProvider->createPaymentIntent($this->order);
 
             // Log payment initiated event
             OrderEvent::log(
                 order: $this->order,
-                eventType: OrderEvent::PAYMENT_INITIATED,
+                eventType: OrderEvent::PAYMENT_INTENT_CREATED,
                 description: "Pago iniciado con {$provider->name}",
                 metadata: [
                     'provider' => $provider->value,
-                    'transaction_id' => $this->paymentIntent->transaction->id,
-                    'amount' => $this->paymentIntent->amountInCents,
+                    'transaction_id' => $intentData->transaction->id,
+                    'amount' => $intentData->amountInCents,
                 ]
             );
+
+            // Store as array for Livewire compatibility
+            $this->paymentIntent = $intentData->toArray();
 
             $this->processing = false;
         } catch (\Exception $e) {

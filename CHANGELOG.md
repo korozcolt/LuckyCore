@@ -7,6 +7,84 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Sprint 3: Integración de Pagos con Wompi
+
+#### Sistema de Pagos
+- `PaymentManager` - Orquestador central de pasarelas de pago:
+  - `provider()`: Obtiene instancia del proveedor
+  - `activeGateways()`: Lista pasarelas activas
+  - Configuración dinámica desde BD
+- Interfaz `PaymentProviderInterface` para implementar nuevos proveedores
+- DTO `PaymentIntentData` para datos de checkout (amount, signature, widget_url, etc.)
+
+#### Integración Wompi
+- `WompiPaymentProvider` - Implementación completa:
+  - `createPaymentIntent()`: Genera intent con firma de integridad
+  - `handleWebhook()`: Procesa eventos de transacción
+  - `verifyWebhookSignature()`: Valida checksum SHA256
+  - `mapWompiStatus()`: Mapea estados Wompi → PaymentStatus
+- Widget de checkout integrado con Alpine.js
+- Soporte para múltiples métodos de pago (tarjetas, PSE, Nequi, Bancolombia)
+- Configuración por ambiente (sandbox/producción)
+
+#### Página de Pago (`/pago/{order}`)
+- Livewire component `Payment\Index`:
+  - Selección de pasarela de pago disponible
+  - Validación de orden (estado, propiedad)
+  - Creación de payment intent
+  - Widget de Wompi embebido dinámicamente
+- Resumen de orden con items y totales
+- Información del cliente
+- Badges de seguridad (SSL, pago seguro)
+
+#### Webhooks
+- Endpoint `POST /api/webhooks/payments/{provider}`
+- Verificación de firma criptográfica
+- Actualización automática de:
+  - Estado de transacción (pending → approved/rejected)
+  - Estado de orden (pending → paid/failed)
+  - Timestamps (paid_at, completed_at)
+- Idempotencia para webhooks duplicados
+- Logging de eventos en OrderEvent
+
+#### Panel Administrativo (Filament)
+- `PaymentGatewayResource` - Gestión de pasarelas:
+  - Activar/desactivar proveedores
+  - Configuración de credenciales (encriptadas)
+  - Logo y descripción personalizables
+- `OrderResource` ampliado con:
+  - Tabs: Información, Items, Transacciones, Timeline, Info técnica
+  - Timeline de eventos con badges de colores
+  - Detalle de transacciones de pago
+  - Metadata técnica (IP, correlation_id, ULID)
+
+#### Tests
+- `WompiProviderTest` con 6 tests:
+  - Creación de payment intent con firma válida
+  - Verificación de signature de webhook
+  - Manejo de estados (APPROVED, DECLINED, etc.)
+- `PaymentWebhookTest` con 4 tests:
+  - Rechazo de provider desconocido
+  - Validación de firma
+  - Procesamiento de webhook válido
+  - Idempotencia ante duplicados
+- `PaymentManagerTest` con 3 tests:
+  - Obtención de provider por enum
+  - Lista de gateways activos
+- `PaymentGatewayTest` con 3 tests
+
+#### Configuración
+Variables de entorno requeridas:
+```env
+WOMPI_PUBLIC_KEY=pub_prod_xxx
+WOMPI_PRIVATE_KEY=prv_prod_xxx
+WOMPI_EVENTS_SECRET=xxx
+WOMPI_INTEGRITY_SECRET=xxx
+WOMPI_SANDBOX=true
+```
+
+---
+
 ### Added - Sprint 2: Carrito Multi-Sorteo & Checkout
 
 #### Carrito de Compras

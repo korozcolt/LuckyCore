@@ -95,7 +95,7 @@ class Order extends Model
 
     public function getFormattedTotalAttribute(): string
     {
-        return '$' . number_format($this->total / 100, 0, ',', '.');
+        return '$'.number_format($this->total / 100, 0, ',', '.');
     }
 
     public function getLatestTransactionAttribute(): ?PaymentTransaction
@@ -140,6 +140,11 @@ class Order extends Model
     public function canRetry(): bool
     {
         return $this->status->canRetry();
+    }
+
+    public function canPay(): bool
+    {
+        return $this->status->canPay();
     }
 
     public function allTicketsAssigned(): bool

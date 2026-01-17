@@ -1,9 +1,40 @@
 <div>
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+            <p class="text-green-800 dark:text-green-400 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined">check_circle</span>
+                {{ session('success') }}
+            </p>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <p class="text-red-800 dark:text-red-400 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined">error</span>
+                {{ session('error') }}
+            </p>
+        </div>
+    @endif
+    @if(session('info'))
+        <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <p class="text-blue-800 dark:text-blue-400 text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined">info</span>
+                {{ session('info') }}
+            </p>
+        </div>
+    @endif
+
     {{-- Header --}}
     <div class="mb-8">
         <div class="flex items-center gap-2 text-[#618961] dark:text-white/60 text-sm mb-2">
-            <a href="{{ route('orders.index') }}" class="hover:text-[#13ec13] transition-colors" wire:navigate>Mis Compras</a>
-            <span class="material-symbols-outlined text-base">chevron_right</span>
+            @auth
+                <a href="{{ route('orders.index') }}" class="hover:text-[#13ec13] transition-colors" wire:navigate>Mis Compras</a>
+                <span class="material-symbols-outlined text-base">chevron_right</span>
+            @else
+                <a href="{{ route('home') }}" class="hover:text-[#13ec13] transition-colors" wire:navigate>Inicio</a>
+                <span class="material-symbols-outlined text-base">chevron_right</span>
+            @endauth
             <span>Orden #{{ $order->order_number }}</span>
         </div>
         <h1 class="text-[#111811] dark:text-white tracking-tight text-[32px] font-bold leading-tight">Detalle de Orden</h1>
@@ -43,13 +74,12 @@
                     <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                         <p class="text-yellow-800 dark:text-yellow-400 text-sm flex items-center gap-2">
                             <span class="material-symbols-outlined">info</span>
-                            Tu pago está pendiente. Serás redirigido a la pasarela de pago para completar tu compra.
+                            Tu pago está pendiente. Haz clic en el botón para completar tu compra.
                         </p>
-                        {{-- Placeholder for payment button - Sprint 3 --}}
-                        <button class="mt-3 px-4 py-2 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-semibold rounded-lg transition-colors flex items-center gap-2">
+                        <a href="{{ route('payment', $order->ulid) }}" class="mt-3 px-4 py-2 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-semibold rounded-lg transition-colors inline-flex items-center gap-2" wire:navigate>
                             <span class="material-symbols-outlined">payment</span>
                             Completar Pago
-                        </button>
+                        </a>
                     </div>
                 @elseif($order->status->value === 'paid')
                     <div class="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
@@ -65,10 +95,10 @@
                             {{ $order->status->value === 'expired' ? 'El tiempo para pagar expiró.' : 'Hubo un problema con tu pago.' }}
                         </p>
                         @if($order->canRetry())
-                            <button class="mt-3 px-4 py-2 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-semibold rounded-lg transition-colors flex items-center gap-2">
+                            <a href="{{ route('payment', $order->ulid) }}" class="mt-3 px-4 py-2 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-semibold rounded-lg transition-colors inline-flex items-center gap-2" wire:navigate>
                                 <span class="material-symbols-outlined">refresh</span>
                                 Reintentar Pago
-                            </button>
+                            </a>
                         @endif
                     </div>
                 @endif

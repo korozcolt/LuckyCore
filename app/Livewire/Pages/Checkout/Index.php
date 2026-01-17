@@ -3,7 +3,6 @@
 namespace App\Livewire\Pages\Checkout;
 
 use App\Models\Cart;
-use App\Models\Order;
 use App\Services\CartService;
 use App\Services\CheckoutService;
 use Illuminate\View\View;
@@ -31,6 +30,7 @@ class Index extends Component
     public bool $termsAccepted = false;
 
     public array $validationErrors = [];
+
     public bool $processing = false;
 
     public function mount(CartService $cartService): void
@@ -39,6 +39,7 @@ class Index extends Component
         $cart = $this->cart;
         if (! $cart || $cart->isEmpty()) {
             $this->redirect(route('cart'), navigate: true);
+
             return;
         }
 
@@ -96,9 +97,8 @@ class Index extends Component
             // Dispatch event for cart update in header
             $this->dispatch('cart-updated');
 
-            // Redirect to payment page (placeholder for Sprint 3)
-            session()->flash('success', 'Orden creada exitosamente. Código de soporte: ' . $order->support_code);
-            $this->redirect(route('orders.show', $order), navigate: true);
+            // Redirect to payment page
+            $this->redirect(route('payment', $order->ulid), navigate: true);
 
         } catch (\InvalidArgumentException $e) {
             $this->processing = false;

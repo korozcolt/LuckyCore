@@ -116,41 +116,57 @@
                             </div>
                         </div>
 
-                        {{-- Wompi Widget Script --}}
-                        <script src="{{ $paymentIntent->widgetUrl }}"></script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const container = document.getElementById('wompi-checkout-container');
-                                container.innerHTML = '';
-
-                                const checkout = new WidgetCheckout({
-                                    currency: '{{ $paymentIntent->currency }}',
-                                    amountInCents: {{ $paymentIntent->amountInCents }},
-                                    reference: '{{ $paymentIntent->reference }}',
-                                    publicKey: '{{ $paymentIntent->publicKey }}',
-                                    signature: {
-                                        integrity: '{{ $paymentIntent->signature }}'
-                                    },
-                                    redirectUrl: '{{ $paymentIntent->redirectUrl }}',
-                                    customerData: {
-                                        email: '{{ $paymentIntent->extra['customer_email'] ?? '' }}',
-                                        fullName: '{{ $paymentIntent->extra['customer_name'] ?? '' }}'
+                        {{-- Wompi Widget --}}
+                        <div
+                            x-data="{
+                                init() {
+                                    this.loadWompiWidget();
+                                },
+                                loadWompiWidget() {
+                                    // Load Wompi script dynamically
+                                    if (typeof WidgetCheckout === 'undefined') {
+                                        const script = document.createElement('script');
+                                        script.src = '{{ $paymentIntent['widget_url'] }}';
+                                        script.onload = () => this.initWidget();
+                                        document.head.appendChild(script);
+                                    } else {
+                                        this.initWidget();
                                     }
-                                });
+                                },
+                                initWidget() {
+                                    const container = document.getElementById('wompi-checkout-container');
+                                    if (!container) return;
 
-                                checkout.open(function(result) {
-                                    const transaction = result.transaction;
-                                    console.log('Wompi transaction result:', transaction);
+                                    container.innerHTML = '';
 
-                                    if (transaction.status === 'APPROVED') {
-                                        window.location.href = '{{ $paymentIntent->redirectUrl }}' + '?id=' + transaction.id;
-                                    } else if (transaction.status === 'DECLINED' || transaction.status === 'VOIDED' || transaction.status === 'ERROR') {
-                                        window.location.href = '{{ $paymentIntent->redirectUrl }}' + '?id=' + transaction.id + '&status=' + transaction.status;
-                                    }
-                                    // For PENDING, let the webhook handle it
-                                });
-                            });
-                        </script>
+                                    const checkout = new WidgetCheckout({
+                                        currency: '{{ $paymentIntent['currency'] }}',
+                                        amountInCents: {{ $paymentIntent['amount_in_cents'] }},
+                                        reference: '{{ $paymentIntent['reference'] }}',
+                                        publicKey: '{{ $paymentIntent['public_key'] }}',
+                                        signature: {
+                                            integrity: '{{ $paymentIntent['signature'] }}'
+                                        },
+                                        redirectUrl: '{{ $paymentIntent['redirect_url'] }}',
+                                        customerData: {
+                                            email: '{{ $paymentIntent['extra']['customer_email'] ?? '' }}',
+                                            fullName: '{{ $paymentIntent['extra']['customer_name'] ?? '' }}'
+                                        }
+                                    });
+
+                                    checkout.open(function(result) {
+                                        const transaction = result.transaction;
+                                        console.log('Wompi transaction result:', transaction);
+
+                                        if (transaction.status === 'APPROVED') {
+                                            window.location.href = '{{ $paymentIntent['redirect_url'] }}' + '?id=' + transaction.id;
+                                        } else if (transaction.status === 'DECLINED' || transaction.status === 'VOIDED' || transaction.status === 'ERROR') {
+                                            window.location.href = '{{ $paymentIntent['redirect_url'] }}' + '?id=' + transaction.id + '&status=' + transaction.status;
+                                        }
+                                    });
+                                }
+                            }"
+                        ></div>
                     </div>
                 @endif
 
