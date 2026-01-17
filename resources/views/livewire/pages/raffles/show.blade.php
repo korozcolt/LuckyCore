@@ -176,6 +176,70 @@
                 </div>
             @endif
 
+            {{-- Prizes Section --}}
+            @if($raffle->activePrizes->count() > 0)
+                <div class="pt-6">
+                    <div class="border-l-4 border-[#13ec13] pl-4 mb-6">
+                        <h2 class="text-[#111811] dark:text-white text-2xl font-extrabold tracking-tight">Premios del Sorteo</h2>
+                        <p class="text-[#618961] dark:text-white/60">Múltiples oportunidades de ganar en este sorteo.</p>
+                    </div>
+                    <div class="space-y-4">
+                        @foreach($raffle->activePrizes as $prize)
+                            @php
+                                $prizeColors = [
+                                    1 => ['bg' => 'bg-gradient-to-r from-yellow-500 to-amber-600', 'icon' => 'emoji_events', 'border' => 'border-yellow-500/30'],
+                                    2 => ['bg' => 'bg-gradient-to-r from-gray-400 to-gray-500', 'icon' => 'military_tech', 'border' => 'border-gray-400/30'],
+                                    3 => ['bg' => 'bg-gradient-to-r from-orange-600 to-orange-700', 'icon' => 'workspace_premium', 'border' => 'border-orange-600/30'],
+                                ];
+                                $colors = $prizeColors[$prize->prize_position] ?? ['bg' => 'bg-gradient-to-r from-[#13ec13] to-green-600', 'icon' => 'star', 'border' => 'border-[#13ec13]/30'];
+
+                                $conditionLabels = [
+                                    'exact_match' => 'Número exacto',
+                                    'reverse' => 'Número al revés',
+                                    'permutation' => 'Cualquier permutación',
+                                    'last_digits' => 'Últimos ' . ($prize->winning_conditions['digit_count'] ?? 2) . ' dígitos',
+                                    'first_digits' => 'Primeros ' . ($prize->winning_conditions['digit_count'] ?? 2) . ' dígitos',
+                                    'combination' => 'Combinación especial',
+                                ];
+                                $conditionLabel = $conditionLabels[$prize->winning_conditions['type'] ?? ''] ?? 'Condición especial';
+                            @endphp
+                            <div class="bg-white dark:bg-[#1a2e1a] rounded-xl p-5 border {{ $colors['border'] }} flex items-center gap-4 hover:shadow-lg transition-shadow">
+                                <div class="{{ $colors['bg'] }} text-white size-14 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                    <span class="material-symbols-outlined text-2xl">{{ $colors['icon'] }}</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <h3 class="text-lg font-bold text-[#111811] dark:text-white truncate">{{ $prize->name }}</h3>
+                                        @if($prize->prize_position <= 3)
+                                            <span class="text-xs font-bold uppercase px-2 py-0.5 rounded-full {{ $prize->prize_position === 1 ? 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400' : ($prize->prize_position === 2 ? 'bg-gray-400/20 text-gray-600 dark:text-gray-300' : 'bg-orange-500/20 text-orange-600 dark:text-orange-400') }}">
+                                                {{ $prize->prize_position }}° Lugar
+                                            </span>
+                                        @endif
+                                    </div>
+                                    @if($prize->description)
+                                        <p class="text-sm text-[#618961] dark:text-white/60 mb-2 line-clamp-2">{{ $prize->description }}</p>
+                                    @endif
+                                    <div class="flex items-center gap-2 text-xs text-[#618961] dark:text-white/50">
+                                        <span class="material-symbols-outlined text-sm">casino</span>
+                                        <span>{{ $conditionLabel }}</span>
+                                    </div>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="text-2xl font-black text-[#13ec13]">{{ $prize->formatted_value }}</p>
+                                    <p class="text-xs text-[#618961] dark:text-white/50">Valor del premio</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="mt-4 p-4 bg-[#f0f4f0] dark:bg-[#102210] rounded-lg">
+                        <p class="text-sm text-[#618961] dark:text-white/60 flex items-start gap-2">
+                            <span class="material-symbols-outlined text-[#13ec13] flex-shrink-0">info</span>
+                            <span>Los premios se determinan según el número ganador de la lotería oficial. Un boleto puede ganar múltiples premios si cumple con varias condiciones.</span>
+                        </p>
+                    </div>
+                </div>
+            @endif
+
             {{-- FAQ Section --}}
             <div class="pt-6 space-y-6">
                 <h3 class="text-xl font-bold text-[#111811] dark:text-white border-b border-[#dbe6db] dark:border-[#2a442a] pb-4">Preguntas Frecuentes</h3>

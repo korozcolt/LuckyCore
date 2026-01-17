@@ -7,6 +7,101 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Added - Sprint 2: Carrito Multi-Sorteo & Checkout
+
+#### Carrito de Compras
+- `CartService` para gestionar operaciones del carrito:
+  - `getOrCreateCart()`: Obtiene o crea carrito para sesión/usuario
+  - `addItem()`: Agrega items con validaciones de cantidad y stock
+  - `updateItem()`: Actualiza cantidad y paquete
+  - `removeItem()`: Elimina items del carrito
+  - `mergeGuestCart()`: Fusiona carrito de invitado al iniciar sesión
+  - `validateCart()`: Valida todo el carrito antes de checkout
+- Página de carrito (`/carrito`) con:
+  - Lista de items con imagen, título, cantidad y subtotal
+  - Controles +/- para modificar cantidad
+  - Selector de paquetes por item
+  - Botón eliminar con confirmación
+  - Resumen de pedido con total
+  - Validación de errores por item
+- Componente `CartCounter` reactivo en header
+- Listener `MergeGuestCartOnLogin` para fusión automática de carritos
+
+#### Checkout y Órdenes
+- `CheckoutService` para conversión carrito → orden:
+  - `createOrder()`: Crea orden con items y eventos
+  - Validación de términos y condiciones
+  - Validación de datos del cliente
+  - Registro de eventos en timeline
+- Página de checkout (`/checkout`) con:
+  - Formulario de datos del cliente (nombre, email, teléfono)
+  - Resumen de items a comprar
+  - Checkbox de términos y condiciones
+  - Total a pagar
+  - Botón de confirmar con loading state
+- Página de detalle de orden (`/mis-compras/{order}`) con:
+  - Estado de la orden con badges de colores
+  - Lista de items comprados
+  - Resumen de totales
+  - Código de soporte para WhatsApp
+  - Vista de boletos asignados (si pagado)
+
+#### Soporte Guest Checkout
+- Migración para hacer `user_id` nullable en `orders`
+- Órdenes pueden crearse sin usuario autenticado
+- Datos del cliente se capturan en el checkout
+
+#### Tests
+- `CartServiceTest` con 14 tests cubriendo:
+  - Creación de carritos para guests y usuarios
+  - Agregar/actualizar/eliminar items
+  - Validaciones de cantidad y stock
+  - Merge de carritos
+- `CheckoutServiceTest` con 7 tests cubriendo:
+  - Creación de órdenes para usuarios y guests
+  - Cálculo correcto de totales
+  - Validaciones de términos y email
+  - Registro de eventos
+
+#### Factories
+- `CartFactory` para crear carritos de prueba
+- `CartItemFactory` para items de carrito
+- `RafflePackageFactory` para paquetes de sorteo
+
+### Added - Sprint 1.5: Reglas de Negocio Críticas
+
+#### Configuración de Números de Tickets
+- Campos configurables por sorteo: `ticket_digits`, `ticket_min_number`, `ticket_max_number`
+- Validaciones en modelo Raffle:
+  - ticket_digits entre 3-10 dígitos
+  - ticket_max_number >= ticket_min_number
+  - Rango suficiente para total_tickets
+- Formulario en Filament con auto-cálculo de número máximo
+- Formato dinámico de tickets según configuración del sorteo
+- Tests unitarios y de integración completos
+
+#### Sistema de Premios Múltiples
+- Modelo `RafflePrize` para múltiples premios por sorteo
+- Enum `WinningConditionType` con 6 tipos de condiciones:
+  - `exact_match`: Número exacto
+  - `reverse`: Número al revés
+  - `permutation`: Cualquier permutación de dígitos
+  - `last_digits`: Últimos N dígitos
+  - `first_digits`: Primeros N dígitos
+  - `combination`: Combinación personalizada
+- `PrizesRelationManager` en Filament para gestionar premios
+- `PrizeCalculationService` para calcular ganadores automáticamente:
+  - `calculateWinners()`: Identifica ganadores por cada premio
+  - `applyWinners()`: Guarda resultados en BD
+  - `previewWinners()`: Vista previa sin modificar BD
+- Vista pública de premios en detalle de sorteo
+- Tests completos para el servicio de cálculo
+
+#### Páginas de Autenticación
+- Rediseño de login y registro con estilo LuckyCore
+- Nuevo favicon con icono de ticket verde
+- Layout de autenticación personalizado (`x-layouts.auth`)
+
 ### Added - Sprint 1: Admin Panel & Public Views
 
 #### Panel Administrativo (Filament 5)

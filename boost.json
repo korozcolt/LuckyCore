@@ -1,0 +1,19 @@
+{
+    "agents": [
+        "claude_code",
+        "cursor",
+        "opencode"
+    ],
+    "editors": [
+        "claude_code",
+        "codex",
+        "cursor",
+        "opencode",
+        "vscode"
+    ],
+    "guidelines": [
+        "filament/filament",
+        "laravel/fortify"
+    ],
+    "herd_mcp": true
+}

@@ -21,6 +21,7 @@ class Ticket extends Model
         'code',
         'is_winner',
         'prize_position',
+        'prize_id',
         'won_at',
     ];
 
@@ -62,12 +63,18 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function prize(): BelongsTo
+    {
+        return $this->belongsTo(RafflePrize::class, 'prize_id');
+    }
+
     // Computed attributes
 
     public function getFormattedCodeAttribute(): string
     {
-        // Format ticket code for display (e.g., "00123" or "A-00123")
-        return str_pad($this->code, 5, '0', STR_PAD_LEFT);
+        // Format ticket code for display using raffle's ticket_digits configuration
+        $digits = $this->raffle->ticket_digits ?? 5;
+        return str_pad($this->code, $digits, '0', STR_PAD_LEFT);
     }
 
     // Query scopes

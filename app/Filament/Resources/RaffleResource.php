@@ -189,6 +189,45 @@ class RaffleResource extends Resource
                                             ->helperText('Random: números aleatorios. Sequential: números consecutivos.'),
                                     ]),
 
+                                Schemas\Components\Section::make('Configuración de números de tickets')
+                                    ->description('Define el formato y rango de números para los tickets de este sorteo')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('ticket_digits')
+                                            ->label('Cantidad de dígitos')
+                                            ->required()
+                                            ->numeric()
+                                            ->default(5)
+                                            ->minValue(3)
+                                            ->maxValue(10)
+                                            ->helperText('Número de dígitos que tendrán los tickets (ej: 5 = 00001-99999)')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, Schemas\Components\Utilities\Set $set, Schemas\Components\Utilities\Get $get) {
+                                                // Auto-calcular max_number basado en dígitos
+                                                if ($state && is_numeric($state)) {
+                                                    $maxNumber = (int) str_repeat('9', (int) $state);
+                                                    $set('ticket_max_number', $maxNumber);
+                                                }
+                                            }),
+
+                                        Forms\Components\TextInput::make('ticket_min_number')
+                                            ->label('Número mínimo')
+                                            ->required()
+                                            ->numeric()
+                                            ->default(1)
+                                            ->minValue(1)
+                                            ->helperText('Número más bajo del rango de tickets'),
+
+                                        Forms\Components\TextInput::make('ticket_max_number')
+                                            ->label('Número máximo')
+                                            ->required()
+                                            ->numeric()
+                                            ->minValue(1)
+                                            ->helperText('Número más alto del rango. Debe ser suficiente para el total de tickets.')
+                                            ->visible(fn (Schemas\Components\Utilities\Get $get) => $get('ticket_digits'))
+                                            ->dehydrated(),
+                                    ])
+                                    ->columns(3),
+
                                 Schemas\Components\Section::make('Fechas')
                                     ->columns(3)
                                     ->schema([
@@ -339,6 +378,7 @@ class RaffleResource extends Resource
     {
         return [
             RelationManagers\PackagesRelationManager::class,
+            RelationManagers\PrizesRelationManager::class,
             RelationManagers\ImagesRelationManager::class,
         ];
     }

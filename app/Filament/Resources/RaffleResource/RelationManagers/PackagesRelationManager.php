@@ -2,6 +2,11 @@
 
 namespace App\Filament\Resources\RaffleResource\RelationManagers;
 
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -102,7 +107,7 @@ class PackagesRelationManager extends RelationManager
                     ->label('Activo'),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()
+                CreateAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
                         // Convert price to cents
                         $data['price'] = (int) ($data['price'] * 100);
@@ -110,7 +115,7 @@ class PackagesRelationManager extends RelationManager
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
+                EditAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['price'] = (int) ($data['price'] * 100);
                         return $data;
@@ -119,11 +124,11 @@ class PackagesRelationManager extends RelationManager
                         $data['price'] = $data['price'] / 100;
                         return $data;
                     }),
-                Tables\Actions\DeleteAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

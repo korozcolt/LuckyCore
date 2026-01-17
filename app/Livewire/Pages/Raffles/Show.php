@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Raffles;
 
 use App\Models\Raffle;
+use App\Services\CartService;
 use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -19,12 +20,14 @@ class Show extends Component
 
     public ?int $selectedPackageId = null;
     public int $quantity = 1;
+    public bool $showAddedToCart = false;
 
     public function mount(Raffle $raffle): void
     {
         $this->raffle = $raffle->load([
             'images' => fn ($q) => $q->orderBy('sort_order'),
             'packages' => fn ($q) => $q->active()->orderBy('sort_order'),
+            'activePrizes' => fn ($q) => $q->orderBy('sort_order')->orderBy('prize_position'),
         ]);
 
         // Pre-select recommended package if available
@@ -86,10 +89,31 @@ class Show extends Component
         return $this->quantity * $this->raffle->ticket_price;
     }
 
-    public function addToCart(): void
+    public function addToCart(CartService $cartService): void
     {
-        // TODO: Implement cart functionality in Sprint 2
-        $this->dispatch('notify', message: 'Agregado al carrito');
+        try {
+            $cart = $cartService->getOrCreateCart(
+                auth()->user(),
+                session()->getId()
+            );
+
+            $package = $this->selectedPackageId
+                ? $this->raffle->packages->find($this->selectedPackageId)
+                : null;
+
+            $cartService->addItem($cart, $this->raffle, $this->quantity, $package);
+
+            $this->showAddedToCart = true;
+            $this->dispatch('cart-updated');
+            $this->dispatch('notify', message: 'Agregado al carrito', type: 'success');
+        } catch (\InvalidArgumentException $e) {
+            $this->dispatch('notify', message: $e->getMessage(), type: 'error');
+        }
+    }
+
+    public function goToCart(): void
+    {
+        $this->redirect(route('cart'), navigate: true);
     }
 
     public function render(): View

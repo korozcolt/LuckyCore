@@ -10,7 +10,13 @@
       "mcp__chrome-devtools__take_snapshot",
       "mcp__chrome-devtools__take_screenshot",
       "mcp__chrome-devtools__click",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__wait_for",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
     ]
   }
 }
