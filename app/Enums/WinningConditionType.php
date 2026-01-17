@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -12,7 +13,7 @@ use Filament\Support\Contracts\HasLabel;
  *
  * @see REGLAS_NEGOCIO.md §6 - Premios múltiples
  */
-enum WinningConditionType: string implements HasLabel, HasColor
+enum WinningConditionType: string implements HasColor, HasIcon, HasLabel
 {
     case ExactMatch = 'exact_match';
     case Reverse = 'reverse';
@@ -33,7 +34,7 @@ enum WinningConditionType: string implements HasLabel, HasColor
         };
     }
 
-    public function getColor(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::ExactMatch => 'success',
@@ -42,6 +43,18 @@ enum WinningConditionType: string implements HasLabel, HasColor
             self::LastDigits => 'primary',
             self::FirstDigits => 'primary',
             self::Combination => 'gray',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::ExactMatch => 'heroicon-o-check-circle',
+            self::Reverse => 'heroicon-o-arrow-uturn-left',
+            self::Permutation => 'heroicon-o-arrows-right-left',
+            self::LastDigits => 'heroicon-o-arrow-right',
+            self::FirstDigits => 'heroicon-o-arrow-left',
+            self::Combination => 'heroicon-o-sparkles',
         };
     }
 

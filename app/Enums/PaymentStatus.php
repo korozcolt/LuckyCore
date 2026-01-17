@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -13,7 +14,7 @@ use Filament\Support\Contracts\HasLabel;
  * @see REGLAS_NEGOCIO.md §3 - Estados: pending/paid/failed/expired
  * @see ALCANCE.md §3 - Estados de pago: pending/approved/rejected/expired/refunded
  */
-enum PaymentStatus: string implements HasColor, HasLabel
+enum PaymentStatus: string implements HasColor, HasIcon, HasLabel
 {
     case Pending = 'pending';
     case Processing = 'processing';
@@ -40,12 +41,25 @@ enum PaymentStatus: string implements HasColor, HasLabel
     {
         return match ($this) {
             self::Pending => 'warning',
-            self::Processing => 'info',
+            self::Processing => 'warning',
             self::Approved => 'success',
             self::Rejected => 'danger',
-            self::Expired => 'gray',
-            self::Refunded => 'info',
-            self::Voided => 'gray',
+            self::Expired => 'danger',
+            self::Refunded => 'gray',
+            self::Voided => 'danger',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Pending => 'heroicon-o-clock',
+            self::Processing => 'heroicon-o-arrow-path',
+            self::Approved => 'heroicon-o-check-circle',
+            self::Rejected => 'heroicon-o-x-circle',
+            self::Expired => 'heroicon-o-exclamation-triangle',
+            self::Refunded => 'heroicon-o-arrow-uturn-left',
+            self::Voided => 'heroicon-o-no-symbol',
         };
     }
 

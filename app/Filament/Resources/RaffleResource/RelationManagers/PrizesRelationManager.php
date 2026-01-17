@@ -134,12 +134,8 @@ class PrizesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('winning_conditions.type')
                     ->label('Condición')
                     ->badge()
-                    ->formatStateUsing(fn ($state) =>
-                        WinningConditionType::tryFrom($state)?->getLabel() ?? '-'
-                    )
-                    ->color(fn ($state) =>
-                        WinningConditionType::tryFrom($state)?->getColor() ?? 'gray'
-                    ),
+                    ->placeholder('-')
+                    ->state(fn ($state) => WinningConditionType::tryFrom($state)),
 
                 Tables\Columns\TextColumn::make('winning_conditions.digit_count')
                     ->label('Dígitos')
@@ -169,6 +165,7 @@ class PrizesRelationManager extends RelationManager
                     ->mutateFormDataUsing(function (array $data): array {
                         // Convert prize_value to cents
                         $data['prize_value'] = (int) ($data['prize_value'] * 100);
+
                         return $data;
                     }),
             ])
@@ -176,10 +173,12 @@ class PrizesRelationManager extends RelationManager
                 EditAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['prize_value'] = (int) ($data['prize_value'] * 100);
+
                         return $data;
                     })
                     ->mutateRecordDataUsing(function (array $data): array {
                         $data['prize_value'] = $data['prize_value'] / 100;
+
                         return $data;
                     }),
                 DeleteAction::make(),

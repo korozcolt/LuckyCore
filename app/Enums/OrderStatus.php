@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -13,7 +14,7 @@ use Filament\Support\Contracts\HasLabel;
  * @see ALCANCE.md §3 - Confirmacion: aprobado/pendiente/rechazado/expirado
  * @see REGLAS_NEGOCIO.md §2 - Orden
  */
-enum OrderStatus: string implements HasColor, HasLabel
+enum OrderStatus: string implements HasColor, HasIcon, HasLabel
 {
     case Pending = 'pending';
     case Paid = 'paid';
@@ -40,9 +41,21 @@ enum OrderStatus: string implements HasColor, HasLabel
             self::Pending => 'warning',
             self::Paid => 'success',
             self::Failed => 'danger',
-            self::Expired => 'gray',
-            self::Refunded => 'info',
-            self::PartialRefund => 'info',
+            self::Expired => 'danger',
+            self::Refunded => 'gray',
+            self::PartialRefund => 'gray',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Pending => 'heroicon-o-clock',
+            self::Paid => 'heroicon-o-check-circle',
+            self::Failed => 'heroicon-o-x-circle',
+            self::Expired => 'heroicon-o-exclamation-triangle',
+            self::Refunded => 'heroicon-o-arrow-uturn-left',
+            self::PartialRefund => 'heroicon-o-arrow-uturn-left',
         };
     }
 

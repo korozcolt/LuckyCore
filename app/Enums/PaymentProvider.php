@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -12,7 +13,7 @@ use Filament\Support\Contracts\HasLabel;
  * @see ALCANCE.md §3 - Integracion con pasarelas: Wompi, MercadoPago, ePayco
  * @see ARQUITECTURA.md §5 - PaymentProviderContract
  */
-enum PaymentProvider: string implements HasLabel
+enum PaymentProvider: string implements HasIcon, HasLabel
 {
     case Wompi = 'wompi';
     case MercadoPago = 'mercadopago';
@@ -24,6 +25,15 @@ enum PaymentProvider: string implements HasLabel
             self::Wompi => 'Wompi',
             self::MercadoPago => 'MercadoPago',
             self::Epayco => 'ePayco',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Wompi => 'heroicon-o-banknotes',
+            self::MercadoPago => 'heroicon-o-credit-card',
+            self::Epayco => 'heroicon-o-building-library',
         };
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -12,7 +13,7 @@ use Filament\Support\Contracts\HasLabel;
  *
  * @see ALCANCE.md §2 - Actores del sistema
  */
-enum UserRole: string implements HasColor, HasLabel
+enum UserRole: string implements HasColor, HasIcon, HasLabel
 {
     case Customer = 'customer';
     case Support = 'support';
@@ -36,6 +37,16 @@ enum UserRole: string implements HasColor, HasLabel
             self::Support => 'warning',
             self::Admin => 'success',
             self::SuperAdmin => 'danger',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Customer => 'heroicon-o-user',
+            self::Support => 'heroicon-o-lifebuoy',
+            self::Admin => 'heroicon-o-shield-check',
+            self::SuperAdmin => 'heroicon-o-shield-exclamation',
         };
     }
 

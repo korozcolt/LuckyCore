@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 /**
@@ -13,7 +14,7 @@ use Filament\Support\Contracts\HasLabel;
  * @see PANTALLAS.md §A2 - Estados: Activo/Proximo/Finalizado
  * @see REGLAS_NEGOCIO.md §6 - Resultados y ganador
  */
-enum RaffleStatus: string implements HasColor, HasLabel
+enum RaffleStatus: string implements HasColor, HasIcon, HasLabel
 {
     case Draft = 'draft';
     case Upcoming = 'upcoming';
@@ -43,6 +44,18 @@ enum RaffleStatus: string implements HasColor, HasLabel
             self::Closed => 'warning',
             self::Completed => 'primary',
             self::Cancelled => 'danger',
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::Draft => 'heroicon-o-pencil-square',
+            self::Upcoming => 'heroicon-o-calendar-days',
+            self::Active => 'heroicon-o-play',
+            self::Closed => 'heroicon-o-lock-closed',
+            self::Completed => 'heroicon-o-trophy',
+            self::Cancelled => 'heroicon-o-x-mark',
         };
     }
 

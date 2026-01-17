@@ -37,14 +37,7 @@ class OrdersTable
 
                 TextColumn::make('status')
                     ->label('Estado')
-                    ->badge()
-                    ->color(fn (OrderStatus $state): string => match ($state) {
-                        OrderStatus::Pending => 'warning',
-                        OrderStatus::Paid => 'success',
-                        OrderStatus::Failed, OrderStatus::Expired => 'danger',
-                        OrderStatus::Refunded, OrderStatus::PartialRefund => 'gray',
-                        default => 'gray',
-                    }),
+                    ->badge(),
 
                 TextColumn::make('total')
                     ->label('Total')

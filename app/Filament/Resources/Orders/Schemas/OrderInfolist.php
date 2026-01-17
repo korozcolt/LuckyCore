@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\Schemas;
 
-use App\Enums\OrderStatus;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
@@ -38,13 +37,7 @@ class OrderInfolist
 
                                             TextEntry::make('status')
                                                 ->label('Estado')
-                                                ->badge()
-                                                ->color(fn (OrderStatus $state): string => match ($state) {
-                                                    OrderStatus::Pending => 'warning',
-                                                    OrderStatus::Paid => 'success',
-                                                    OrderStatus::Failed, OrderStatus::Expired => 'danger',
-                                                    default => 'gray',
-                                                }),
+                                                ->badge(),
 
                                             TextEntry::make('support_code')
                                                 ->label('Código de soporte')
@@ -141,13 +134,7 @@ class OrderInfolist
 
                                         TextEntry::make('status')
                                             ->label('Estado')
-                                            ->badge()
-                                            ->color(fn ($state) => match ($state?->value ?? $state) {
-                                                'approved' => 'success',
-                                                'pending', 'processing' => 'warning',
-                                                'rejected', 'expired', 'voided' => 'danger',
-                                                default => 'gray',
-                                            }),
+                                            ->badge(),
 
                                         TextEntry::make('amount')
                                             ->label('Monto')
