@@ -33,6 +33,10 @@ Route::get('/carrito', CartIndex::class)->name('cart');
 // Checkout (requires cart with items)
 Route::get('/checkout', CheckoutIndex::class)->name('checkout');
 
+// Payment callbacks (public - user is redirected here after payment)
+Route::get('/pagos/{provider}/callback/{order:ulid}', [App\Http\Controllers\PaymentCallbackController::class, 'callback'])
+    ->name('payments.callback');
+
 /*
 |--------------------------------------------------------------------------
 | Authenticated Routes

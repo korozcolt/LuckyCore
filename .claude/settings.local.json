@@ -16,7 +16,15 @@
       "mcp__chrome-devtools__wait_for",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "mcp__laravel-boost__search-docs",
+      "WebFetch(domain:docs.wompi.co)",
+      "WebSearch",
+      "Bash(vendor/bin/pint:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "laravel-boost",
+    "herd"
+  ]
 }
