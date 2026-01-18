@@ -42,7 +42,12 @@
       "mcp__chrome-devtools__get_network_request",
       "WebFetch(domain:github.com)",
       "Bash(composer show:*)",
-      "Bash(composer update:*)"
+      "Bash(composer update:*)",
+      "mcp__chrome-devtools__emulate",
+      "Bash(php /Users/kronnos/Herd/LuckyCore/artisan test:*)",
+      "WebFetch(domain:docs.epayco.com)",
+      "WebFetch(domain:epayco.com)",
+      "Bash(php /Users/kronnos/Herd/LuckyCore/artisan make:test:*)"
     ]
   },
   "enabledMcpjsonServers": [

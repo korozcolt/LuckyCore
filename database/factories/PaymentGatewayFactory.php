@@ -89,7 +89,19 @@ class PaymentGatewayFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'provider' => PaymentProvider::Epayco,
             'display_name' => 'ePayco',
-            'description' => 'Paga con ePayco',
+            'description' => 'Paga con tarjeta, PSE, Efecty y más',
+        ]);
+    }
+
+    public function epaycoConfigured(): static
+    {
+        return $this->epayco()->state(fn (array $attributes) => [
+            'credentials' => [
+                'public_key' => 'test_public_key_xxxxxxxxxx',
+                'private_key' => 'test_private_key_xxxxxxxxxx',
+                'p_cust_id_cliente' => '123456',
+                'p_key' => 'test_p_key_xxxxxxxxxx',
+            ],
         ]);
     }
 }

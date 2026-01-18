@@ -55,17 +55,36 @@
                                     wire:click="selectProvider('{{ $gateway->provider->value }}')"
                                     class="w-full p-4 rounded-lg border-2 transition-all flex items-center gap-4 {{ $selectedProvider === $gateway->provider->value ? 'border-[#13ec13] bg-[#13ec13]/5' : 'border-[#dbe6db] dark:border-white/10 hover:border-[#13ec13]/50' }}"
                                 >
-                                    @if($gateway->logo_url)
-                                        <img src="{{ $gateway->logo_url }}" alt="{{ $gateway->display_name }}" class="h-8 w-auto">
-                                    @else
-                                        <div class="h-10 w-10 rounded-lg bg-[#f0f4f0] dark:bg-white/10 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-[#618961]">credit_card</span>
-                                        </div>
-                                    @endif
+                                    {{-- Provider Logo --}}
+                                    <div class="w-24 h-10 flex items-center justify-start shrink-0">
+                                        @switch($gateway->provider->value)
+                                            @case('wompi')
+                                                <img src="{{ asset('images/wompi_logo_fondo_claro.png') }}" alt="Wompi" class="h-8 w-auto dark:hidden">
+                                                <img src="{{ asset('images/wompi_logo_fondo_oscuro.png') }}" alt="Wompi" class="h-8 w-auto hidden dark:block">
+                                                @break
+                                            @case('mercadopago')
+                                                <img src="{{ asset('images/mercado_pago_logo_horizontal_fondo_claro.png') }}" alt="MercadoPago" class="h-7 w-auto dark:hidden">
+                                                <img src="{{ asset('images/mercado_pago_logo_horizontal_fondo_oscuro.svg') }}" alt="MercadoPago" class="h-7 w-auto hidden dark:block">
+                                                @break
+                                            @case('epayco')
+                                                <img src="{{ asset('images/epayco-logo-fondo-claro.png') }}" alt="ePayco" class="h-8 w-auto dark:hidden">
+                                                <img src="{{ asset('images/epayco-logo-fondo-oscuro.png') }}" alt="ePayco" class="h-8 w-auto hidden dark:block">
+                                                @break
+                                            @default
+                                                @if($gateway->logo_url)
+                                                    <img src="{{ $gateway->logo_url }}" alt="{{ $gateway->display_name }}" class="h-8 w-auto">
+                                                @else
+                                                    <div class="h-10 w-10 rounded-lg bg-[#f0f4f0] dark:bg-white/10 flex items-center justify-center">
+                                                        <span class="material-symbols-outlined text-[#618961]">credit_card</span>
+                                                    </div>
+                                                @endif
+                                        @endswitch
+                                    </div>
                                     <div class="text-left flex-1">
-                                        <p class="text-[#111811] dark:text-white font-semibold">{{ $gateway->display_name }}</p>
                                         @if($gateway->description)
                                             <p class="text-[#618961] dark:text-white/60 text-sm">{{ $gateway->description }}</p>
+                                        @else
+                                            <p class="text-[#111811] dark:text-white font-semibold">{{ $gateway->display_name }}</p>
                                         @endif
                                     </div>
                                     @if($selectedProvider === $gateway->provider->value)
@@ -109,131 +128,11 @@
                             Completa tu pago con Wompi
                         </h2>
 
-                        {{-- Wompi Widget --}}
-                        <div
-                            x-data="{
-                                loading: true,
-                                widgetClosed: false,
-                                widgetOpen: false,
-                                observer: null,
-                                init() {
-                                    this.loadWompiWidget();
-                                },
-                                loadWompiWidget() {
-                                    this.loading = true;
-                                    this.widgetClosed = false;
-                                    this.widgetOpen = false;
-
-                                    if (typeof WidgetCheckout === 'undefined') {
-                                        const script = document.createElement('script');
-                                        script.src = '{{ $paymentIntent['widget_url'] }}';
-                                        script.onload = () => this.initWidget();
-                                        document.head.appendChild(script);
-                                    } else {
-                                        this.initWidget();
-                                    }
-                                },
-                                initWidget() {
-                                    this.loading = false;
-                                    const self = this;
-
-                                    const checkout = new WidgetCheckout({
-                                        currency: '{{ $paymentIntent['currency'] }}',
-                                        amountInCents: {{ $paymentIntent['amount_in_cents'] }},
-                                        reference: '{{ $paymentIntent['reference'] }}',
-                                        publicKey: '{{ $paymentIntent['public_key'] }}',
-                                        signature: {
-                                            integrity: '{{ $paymentIntent['signature'] }}'
-                                        },
-                                        redirectUrl: '{{ $paymentIntent['redirect_url'] }}',
-                                        customerData: {
-                                            email: '{{ $paymentIntent['extra']['customer_email'] ?? '' }}',
-                                            fullName: '{{ $paymentIntent['extra']['customer_name'] ?? '' }}'
-                                        }
-                                    });
-
-                                    checkout.open(function(result) {
-                                        const transaction = result.transaction;
-                                        console.log('Wompi transaction result:', transaction);
-
-                                        if (transaction.status === 'APPROVED') {
-                                            window.location.href = '{{ $paymentIntent['redirect_url'] }}' + '?id=' + transaction.id;
-                                        } else if (transaction.status === 'DECLINED' || transaction.status === 'VOIDED' || transaction.status === 'ERROR') {
-                                            window.location.href = '{{ $paymentIntent['redirect_url'] }}' + '?id=' + transaction.id + '&status=' + transaction.status;
-                                        }
-                                    });
-
-                                    // Watch for widget modal to detect when it closes
-                                    this.widgetOpen = true;
-                                    this.watchForWidgetClose();
-                                },
-                                watchForWidgetClose() {
-                                    const self = this;
-
-                                    // Clean up previous observer
-                                    if (this.observer) {
-                                        this.observer.disconnect();
-                                    }
-
-                                    // Use MutationObserver to detect when Wompi modal is removed
-                                    this.observer = new MutationObserver(function(mutations) {
-                                        // Check if Wompi modal still exists in DOM
-                                        const wompiModal = document.querySelector('.wompi-modal, [class*=\"wompi\"], iframe[src*=\"wompi\"]');
-                                        const hasWompiDialog = document.querySelector('[role=\"dialog\"]');
-
-                                        if (self.widgetOpen && !wompiModal && !hasWompiDialog) {
-                                            console.log('Wompi widget closed detected');
-                                            self.widgetOpen = false;
-                                            self.widgetClosed = true;
-                                            self.observer.disconnect();
-                                        }
-                                    });
-
-                                    // Start observing after a short delay to let the modal appear
-                                    const observerSelf = this;
-                                    setTimeout(function() {
-                                        observerSelf.observer.observe(document.body, {
-                                            childList: true,
-                                            subtree: true
-                                        });
-                                    }, 1000);
-                                },
-                                retryPayment() {
-                                    this.loadWompiWidget();
-                                }
-                            }"
-                        >
-                            {{-- Loading state --}}
-                            <div x-show="loading" class="min-h-[200px] flex items-center justify-center">
-                                <div class="text-center">
-                                    <div class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
-                                    <p class="text-[#618961] dark:text-white/60">Cargando pasarela de pago...</p>
-                                </div>
-                            </div>
-
-                            {{-- Widget closed state --}}
-                            <div x-show="widgetClosed && !loading" class="min-h-[200px] flex items-center justify-center">
-                                <div class="text-center space-y-4">
-                                    <span class="material-symbols-outlined text-5xl text-[#618961] dark:text-white/40">credit_card_off</span>
-                                    <p class="text-[#618961] dark:text-white/60">
-                                        Cerraste la ventana de pago sin completar la transacción.
-                                    </p>
-                                    <button
-                                        type="button"
-                                        @click="retryPayment()"
-                                        class="px-6 py-3 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-bold rounded-lg transition-colors inline-flex items-center gap-2"
-                                    >
-                                        <span class="material-symbols-outlined">refresh</span>
-                                        Reintentar pago
-                                    </button>
-                                </div>
-                            </div>
-
-                            {{-- Active payment state (widget is open) --}}
-                            <div x-show="!loading && !widgetClosed" class="min-h-[100px] flex items-center justify-center">
-                                <p class="text-[#618961] dark:text-white/60 text-center">
-                                    Completa el pago en la ventana de Wompi.
-                                </p>
+                        {{-- Wompi Widget Container --}}
+                        <div wire:ignore class="min-h-[150px]" id="wompi-container">
+                            <div class="text-center py-8" id="wompi-status">
+                                <div id="wompi-spinner" class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
+                                <p id="wompi-message" class="text-[#618961] dark:text-white/60">Cargando pasarela de pago...</p>
                             </div>
                         </div>
                     </div>
@@ -382,4 +281,53 @@
             </div>
         </div>
     </div>
+
+    @script
+    <script>
+        $wire.on('init-wompi-widget', ({ config }) => {
+            console.log('Wompi widget init event received', config);
+
+            function initWompiWidget() {
+                const spinner = document.getElementById('wompi-spinner');
+                const message = document.getElementById('wompi-message');
+
+                if (spinner) spinner.style.display = 'none';
+                if (message) message.textContent = 'Completa el pago en la ventana de Wompi.';
+
+                const checkout = new WidgetCheckout({
+                    currency: config.currency,
+                    amountInCents: config.amount_in_cents,
+                    reference: config.reference,
+                    publicKey: config.public_key,
+                    signature: { integrity: config.signature },
+                    redirectUrl: config.redirect_url,
+                    customerData: {
+                        email: config.extra?.customer_email || '',
+                        fullName: config.extra?.customer_name || ''
+                    }
+                });
+
+                checkout.open(function(result) {
+                    const transaction = result.transaction;
+                    console.log('Wompi result:', transaction);
+
+                    if (transaction.status === 'APPROVED') {
+                        window.location.href = config.redirect_url + '?id=' + transaction.id;
+                    } else if (['DECLINED', 'VOIDED', 'ERROR'].includes(transaction.status)) {
+                        window.location.href = config.redirect_url + '?id=' + transaction.id + '&status=' + transaction.status;
+                    }
+                });
+            }
+
+            if (typeof WidgetCheckout === 'undefined') {
+                const script = document.createElement('script');
+                script.src = config.widget_url;
+                script.onload = initWompiWidget;
+                document.head.appendChild(script);
+            } else {
+                initWompiWidget();
+            }
+        });
+    </script>
+    @endscript
 </div>

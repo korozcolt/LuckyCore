@@ -110,6 +110,18 @@ class PaymentGateway extends Model
         return $this->credentials['webhook_secret'] ?? null;
     }
 
+    // Credential accessors for ePayco
+
+    public function getClientIdAttribute(): ?string
+    {
+        return $this->credentials['p_cust_id_cliente'] ?? null;
+    }
+
+    public function getSecretKeyAttribute(): ?string
+    {
+        return $this->credentials['p_key'] ?? null;
+    }
+
     // Helper methods
 
     public function isConfigured(): bool
@@ -121,7 +133,12 @@ class PaymentGateway extends Model
         return match ($this->provider) {
             PaymentProvider::Wompi => isset($this->credentials['public_key'], $this->credentials['integrity_secret']),
             PaymentProvider::MercadoPago => isset($this->credentials['access_token']),
-            PaymentProvider::Epayco => isset($this->credentials['public_key'], $this->credentials['private_key']),
+            PaymentProvider::Epayco => isset(
+                $this->credentials['public_key'],
+                $this->credentials['private_key'],
+                $this->credentials['p_cust_id_cliente'],
+                $this->credentials['p_key'],
+            ),
         };
     }
 

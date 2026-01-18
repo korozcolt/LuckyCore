@@ -110,6 +110,11 @@ class Index extends Component
             // Store as array for Livewire compatibility
             $this->paymentIntent = $intentData->toArray();
 
+            // Dispatch event to initialize payment widget in browser
+            if ($provider === PaymentProvider::Wompi) {
+                $this->dispatch('init-wompi-widget', config: $this->paymentIntent);
+            }
+
             $this->processing = false;
         } catch (\Exception $e) {
             $this->processing = false;
