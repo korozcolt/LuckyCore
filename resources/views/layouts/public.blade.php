@@ -41,9 +41,7 @@
 
                 {{-- Auth Buttons --}}
                 @auth
-                    <div class="h-10 w-10 rounded-full bg-[#13ec13]/20 flex items-center justify-center border border-[#13ec13]/30">
-                        <span class="material-symbols-outlined text-[#13ec13]">person</span>
-                    </div>
+                    <x-public-user-menu />
                 @else
                     <a href="{{ route('login') }}" class="hidden sm:flex bg-[#13ec13] text-black px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide hover:opacity-90 transition-all" wire:navigate>
                         Iniciar Sesión

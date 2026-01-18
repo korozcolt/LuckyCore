@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::get('/favicon.ico', function () {
+    $path = public_path('favicon.ico');
+
+    abort_unless(is_file($path), 404);
+
+    return response()->file($path, [
+        'Content-Type' => 'image/x-icon',
+    ]);
+})->name('favicon');
+
 Route::get('/', Home::class)->name('home');
 
 // Raffles

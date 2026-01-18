@@ -42,41 +42,44 @@ new class extends Component {
 <section class="w-full">
     @include('partials.settings-heading')
 
-    <flux:heading class="sr-only">{{ __('Password Settings') }}</flux:heading>
+    <flux:heading class="sr-only">Configuración de contraseña</flux:heading>
 
-    <x-pages::settings.layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
+    <x-pages::settings.layout heading="Contraseña" subheading="Actualiza tu contraseña para mantener tu cuenta segura.">
         <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
             <flux:input
                 wire:model="current_password"
-                :label="__('Current password')"
+                label="Contraseña actual"
                 type="password"
                 required
                 autocomplete="current-password"
+                class="w-full"
             />
             <flux:input
                 wire:model="password"
-                :label="__('New password')"
+                label="Nueva contraseña"
                 type="password"
                 required
                 autocomplete="new-password"
+                class="w-full"
             />
             <flux:input
                 wire:model="password_confirmation"
-                :label="__('Confirm Password')"
+                label="Confirmar contraseña"
                 type="password"
                 required
                 autocomplete="new-password"
+                class="w-full"
             />
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full" data-test="update-password-button">
-                        {{ __('Save') }}
+                        Guardar
                     </flux:button>
                 </div>
 
                 <x-action-message class="me-3" on="password-updated">
-                    {{ __('Saved.') }}
+                    Guardado.
                 </x-action-message>
             </div>
         </form>

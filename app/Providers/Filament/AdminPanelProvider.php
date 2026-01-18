@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.webp'))
             ->darkModeBrandLogo(asset('images/logo.webp'))
             ->brandLogoHeight('2rem')
+            ->favicon(fn (): string => route('favicon').'?v='.filemtime(public_path('favicon.ico')))
             ->colors([
                 'primary' => Color::Amber,
             ])
