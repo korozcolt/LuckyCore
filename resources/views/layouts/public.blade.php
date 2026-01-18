@@ -33,8 +33,8 @@
                     @endauth
                 </nav>
 
-                {{-- Cart Button --}}
-                <livewire:components.cart-counter />
+                {{-- Cart Drawer --}}
+                <livewire:components.cart-drawer />
 
                 {{-- Auth Buttons --}}
                 @auth

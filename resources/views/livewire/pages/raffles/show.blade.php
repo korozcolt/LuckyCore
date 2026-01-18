@@ -320,10 +320,19 @@
                             </div>
                             <button
                                 wire:click="addToCart"
-                                class="w-full bg-[#13ec13] hover:brightness-110 text-black py-4 rounded-xl font-extrabold text-lg shadow-lg flex items-center justify-center gap-2 group transition-all"
+                                wire:loading.attr="disabled"
+                                wire:loading.class="opacity-75 cursor-wait"
+                                class="w-full bg-[#13ec13] hover:brightness-110 text-black py-4 rounded-xl font-extrabold text-lg shadow-lg flex items-center justify-center gap-2 group transition-all disabled:hover:brightness-100"
                             >
-                                <span>AGREGAR AL CARRITO</span>
-                                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <span wire:loading.remove wire:target="addToCart">AGREGAR AL CARRITO</span>
+                                <span wire:loading wire:target="addToCart" class="flex items-center gap-2">
+                                    <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    AGREGANDO...
+                                </span>
+                                <span wire:loading.remove wire:target="addToCart" class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </button>
                             <div class="flex flex-col gap-2 items-center">
                                 <p class="text-[10px] text-[#618961] uppercase font-bold tracking-widest">Pago 100% Seguro</p>

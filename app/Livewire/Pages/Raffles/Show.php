@@ -19,7 +19,9 @@ class Show extends Component
     public Raffle $raffle;
 
     public ?int $selectedPackageId = null;
+
     public int $quantity = 1;
+
     public bool $showAddedToCart = false;
 
     public function mount(Raffle $raffle): void
@@ -105,7 +107,7 @@ class Show extends Component
 
             $this->showAddedToCart = true;
             $this->dispatch('cart-updated');
-            $this->dispatch('notify', message: 'Agregado al carrito', type: 'success');
+            $this->dispatch('open-cart-drawer');
         } catch (\InvalidArgumentException $e) {
             $this->dispatch('notify', message: $e->getMessage(), type: 'error');
         }
