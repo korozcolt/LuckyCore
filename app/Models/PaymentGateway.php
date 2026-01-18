@@ -98,6 +98,18 @@ class PaymentGateway extends Model
         return $this->credentials['integrity_secret'] ?? null;
     }
 
+    // Credential accessors for MercadoPago
+
+    public function getAccessTokenAttribute(): ?string
+    {
+        return $this->credentials['access_token'] ?? null;
+    }
+
+    public function getWebhookSecretAttribute(): ?string
+    {
+        return $this->credentials['webhook_secret'] ?? null;
+    }
+
     // Helper methods
 
     public function isConfigured(): bool

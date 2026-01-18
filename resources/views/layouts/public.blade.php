@@ -15,10 +15,13 @@
             <div class="flex items-center gap-8">
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="flex items-center gap-2 text-[#111811] dark:text-[#13ec13]" wire:navigate>
-                    <div class="size-8 flex items-center justify-center bg-[#13ec13] rounded-lg text-white">
-                        <span class="material-symbols-outlined">confirmation_number</span>
-                    </div>
-                    <h2 class="text-[#111811] dark:text-white text-xl font-bold leading-tight tracking-tight">{{ config('app.name') }}</h2>
+                    <img
+                        src="{{ asset('images/logo.webp') }}"
+                        alt="{{ config('app.name') }}"
+                        class="h-10 md:h-11 w-auto"
+                        loading="eager"
+                    />
+                    <span class="sr-only">{{ config('app.name') }}</span>
                 </a>
             </div>
 
@@ -80,10 +83,12 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 {{-- Brand --}}
                 <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center gap-2 text-[#111811] dark:text-[#13ec13] mb-4">
-                        <span class="material-symbols-outlined text-[#13ec13]">confirmation_number</span>
-                        <h2 class="text-[#111811] dark:text-white text-xl font-bold tracking-tight">{{ config('app.name') }}</h2>
-                    </div>
+                    <img
+                        src="{{ asset('images/logo.webp') }}"
+                        alt="{{ config('app.name') }}"
+                        class="h-10 w-auto mb-4"
+                        loading="lazy"
+                    />
                     <p class="text-[#618961] dark:text-white/60 text-sm leading-relaxed">
                         La plataforma de sorteos con premios increíbles. ¡Tu suerte está a un clic de distancia!
                     </p>

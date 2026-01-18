@@ -74,6 +74,16 @@ class PaymentGatewayFactory extends Factory
         ]);
     }
 
+    public function mercadoPagoConfigured(): static
+    {
+        return $this->mercadoPago()->state(fn (array $attributes) => [
+            'credentials' => [
+                'access_token' => 'TEST-1234567890123456-123456-abcdefghijklmnopqrstuvwxyz123456-123456789',
+                'webhook_secret' => 'test_webhook_secret_xxxxxxxxxx',
+            ],
+        ]);
+    }
+
     public function epayco(): static
     {
         return $this->state(fn (array $attributes) => [

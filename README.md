@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="public/images/logo.webp" alt="LuckyCore" width="260" />
+
 **Plataforma Integral de Sorteos Digitales**  
 *Gestión profesional de rifas, tickets, pagos y administración*
 
@@ -11,6 +13,8 @@
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php)](https://php.net)
 
 🚀 Demo • 📖 Documentación • 🐛 Reportar Bug • 💡 Solicitar Feature
+
+Concepto gráfico por **Kristian Orozco**.
 
 </div>
 

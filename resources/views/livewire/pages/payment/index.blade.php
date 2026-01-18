@@ -109,21 +109,21 @@
                             Completa tu pago con Wompi
                         </h2>
 
-                        <div id="wompi-checkout-container" class="min-h-[400px] flex items-center justify-center">
-                            <div class="text-center">
-                                <div class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
-                                <p class="text-[#618961]">Cargando pasarela de pago...</p>
-                            </div>
-                        </div>
-
                         {{-- Wompi Widget --}}
                         <div
                             x-data="{
+                                loading: true,
+                                widgetClosed: false,
+                                widgetOpen: false,
+                                observer: null,
                                 init() {
                                     this.loadWompiWidget();
                                 },
                                 loadWompiWidget() {
-                                    // Load Wompi script dynamically
+                                    this.loading = true;
+                                    this.widgetClosed = false;
+                                    this.widgetOpen = false;
+
                                     if (typeof WidgetCheckout === 'undefined') {
                                         const script = document.createElement('script');
                                         script.src = '{{ $paymentIntent['widget_url'] }}';
@@ -134,10 +134,8 @@
                                     }
                                 },
                                 initWidget() {
-                                    const container = document.getElementById('wompi-checkout-container');
-                                    if (!container) return;
-
-                                    container.innerHTML = '';
+                                    this.loading = false;
+                                    const self = this;
 
                                     const checkout = new WidgetCheckout({
                                         currency: '{{ $paymentIntent['currency'] }}',
@@ -164,9 +162,157 @@
                                             window.location.href = '{{ $paymentIntent['redirect_url'] }}' + '?id=' + transaction.id + '&status=' + transaction.status;
                                         }
                                     });
+
+                                    // Watch for widget modal to detect when it closes
+                                    this.widgetOpen = true;
+                                    this.watchForWidgetClose();
+                                },
+                                watchForWidgetClose() {
+                                    const self = this;
+
+                                    // Clean up previous observer
+                                    if (this.observer) {
+                                        this.observer.disconnect();
+                                    }
+
+                                    // Use MutationObserver to detect when Wompi modal is removed
+                                    this.observer = new MutationObserver(function(mutations) {
+                                        // Check if Wompi modal still exists in DOM
+                                        const wompiModal = document.querySelector('.wompi-modal, [class*=\"wompi\"], iframe[src*=\"wompi\"]');
+                                        const hasWompiDialog = document.querySelector('[role=\"dialog\"]');
+
+                                        if (self.widgetOpen && !wompiModal && !hasWompiDialog) {
+                                            console.log('Wompi widget closed detected');
+                                            self.widgetOpen = false;
+                                            self.widgetClosed = true;
+                                            self.observer.disconnect();
+                                        }
+                                    });
+
+                                    // Start observing after a short delay to let the modal appear
+                                    const observerSelf = this;
+                                    setTimeout(function() {
+                                        observerSelf.observer.observe(document.body, {
+                                            childList: true,
+                                            subtree: true
+                                        });
+                                    }, 1000);
+                                },
+                                retryPayment() {
+                                    this.loadWompiWidget();
                                 }
                             }"
-                        ></div>
+                        >
+                            {{-- Loading state --}}
+                            <div x-show="loading" class="min-h-[200px] flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
+                                    <p class="text-[#618961] dark:text-white/60">Cargando pasarela de pago...</p>
+                                </div>
+                            </div>
+
+                            {{-- Widget closed state --}}
+                            <div x-show="widgetClosed && !loading" class="min-h-[200px] flex items-center justify-center">
+                                <div class="text-center space-y-4">
+                                    <span class="material-symbols-outlined text-5xl text-[#618961] dark:text-white/40">credit_card_off</span>
+                                    <p class="text-[#618961] dark:text-white/60">
+                                        Cerraste la ventana de pago sin completar la transacción.
+                                    </p>
+                                    <button
+                                        type="button"
+                                        @click="retryPayment()"
+                                        class="px-6 py-3 bg-[#13ec13] hover:bg-[#13ec13]/90 text-white font-bold rounded-lg transition-colors inline-flex items-center gap-2"
+                                    >
+                                        <span class="material-symbols-outlined">refresh</span>
+                                        Reintentar pago
+                                    </button>
+                                </div>
+                            </div>
+
+                            {{-- Active payment state (widget is open) --}}
+                            <div x-show="!loading && !widgetClosed" class="min-h-[100px] flex items-center justify-center">
+                                <p class="text-[#618961] dark:text-white/60 text-center">
+                                    Completa el pago en la ventana de Wompi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                {{-- MercadoPago Widget --}}
+                @if($selectedProvider === 'mercadopago')
+                    <div class="bg-white dark:bg-white/5 rounded-xl border border-[#dbe6db] dark:border-white/10 p-6">
+                        <h2 class="text-[#111811] dark:text-white font-bold text-xl mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[#13ec13]">credit_card</span>
+                            Completa tu pago con MercadoPago
+                        </h2>
+
+                        <div id="mercadopago-checkout-container" class="min-h-[200px]">
+                            {{-- MercadoPago Checkout Pro Button --}}
+                            <div
+                                x-data="{
+                                    loading: true,
+                                    init() {
+                                        this.loadMercadoPagoSdk();
+                                    },
+                                    loadMercadoPagoSdk() {
+                                        if (typeof MercadoPago === 'undefined') {
+                                            const script = document.createElement('script');
+                                            script.src = '{{ $paymentIntent['widget_url'] }}';
+                                            script.onload = () => this.initCheckout();
+                                            document.head.appendChild(script);
+                                        } else {
+                                            this.initCheckout();
+                                        }
+                                    },
+                                    initCheckout() {
+                                        const mp = new MercadoPago('{{ $paymentIntent['public_key'] }}', {
+                                            locale: 'es-CO'
+                                        });
+
+                                        mp.checkout({
+                                            preference: {
+                                                id: '{{ $paymentIntent['extra']['preference_id'] }}'
+                                            },
+                                            render: {
+                                                container: '#mp-checkout-btn',
+                                                label: 'Pagar con MercadoPago'
+                                            }
+                                        });
+
+                                        this.loading = false;
+                                    }
+                                }"
+                            >
+                                <div x-show="loading" class="flex items-center justify-center py-8">
+                                    <div class="text-center">
+                                        <div class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
+                                        <p class="text-[#618961] dark:text-white/60">Cargando MercadoPago...</p>
+                                    </div>
+                                </div>
+
+                                <div x-show="!loading" class="space-y-4">
+                                    <div class="text-center py-4">
+                                        <p class="text-[#618961] dark:text-white/60 mb-4">
+                                            Serás redirigido a MercadoPago para completar tu pago de forma segura.
+                                        </p>
+                                        <div id="mp-checkout-btn" class="flex justify-center"></div>
+                                    </div>
+
+                                    {{-- Alternative direct link --}}
+                                    <div class="text-center pt-4 border-t border-[#dbe6db] dark:border-white/10">
+                                        <p class="text-[#618961] dark:text-white/60 text-sm mb-3">¿El botón no funciona?</p>
+                                        <a
+                                            href="{{ $paymentIntent['extra']['init_point'] ?? '#' }}"
+                                            class="inline-flex items-center gap-2 px-6 py-3 bg-[#009ee3] hover:bg-[#007cb0] text-white font-semibold rounded-lg transition-colors"
+                                        >
+                                            <span class="material-symbols-outlined">open_in_new</span>
+                                            Ir a MercadoPago
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endif
 

@@ -14,10 +14,13 @@
         <header class="py-6 px-4">
             <div class="max-w-md mx-auto">
                 <a href="{{ route('home') }}" class="flex items-center justify-center gap-2" wire:navigate>
-                    <div class="size-10 flex items-center justify-center bg-[#13ec13] rounded-lg">
-                        <span class="material-symbols-outlined text-[#111811]">confirmation_number</span>
-                    </div>
-                    <h1 class="text-2xl font-bold tracking-tight">{{ config('app.name') }}</h1>
+                    <img
+                        src="{{ asset('images/logo.webp') }}"
+                        alt="{{ config('app.name') }}"
+                        class="h-10 w-auto"
+                        loading="eager"
+                    />
+                    <span class="sr-only">{{ config('app.name') }}</span>
                 </a>
             </div>
         </header>

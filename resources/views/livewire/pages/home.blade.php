@@ -1,4 +1,18 @@
 <div>
+    <section class="py-6 lg:py-10">
+        <div class="flex flex-col items-center text-center gap-3">
+            <img
+                src="{{ asset('images/logo.webp') }}"
+                alt="{{ config('app.name') }}"
+                class="h-16 sm:h-20 lg:h-24 w-auto"
+                loading="eager"
+            />
+            <p class="text-[#618961] dark:text-white/60 text-sm sm:text-base">
+                Sorteos seguros y transparentes
+            </p>
+        </div>
+    </section>
+
     {{-- Hero Section with Featured Raffle --}}
     @if($featuredRaffles->count() > 0)
         @php $featured = $featuredRaffles->first(); @endphp
