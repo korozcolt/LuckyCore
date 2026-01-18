@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 use App\Models\Order;
+use App\Services\TicketAssignmentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,12 @@ class PaymentCallbackController extends Controller
     /**
      * Handle the payment callback redirect.
      */
-    public function callback(Request $request, string $provider, Order $order): RedirectResponse
-    {
+    public function callback(
+        Request $request,
+        string $provider,
+        Order $order,
+        TicketAssignmentService $ticketAssignmentService,
+    ): RedirectResponse {
         // The webhook will handle the actual payment status update
         // This just redirects the user to the order confirmation page with appropriate message
 
@@ -34,6 +39,11 @@ class PaymentCallbackController extends Controller
 
         // Determine message based on status
         if ($order->status === OrderStatus::Paid) {
+            if (! $order->allTicketsAssigned()) {
+                $ticketAssignmentService->assignForOrder($order);
+                $order->refresh();
+            }
+
             session()->flash('success', '¡Pago exitoso! Tu compra ha sido confirmada.');
         } elseif ($status === 'DECLINED' || $status === 'ERROR' || $status === 'VOIDED') {
             session()->flash('error', 'El pago fue rechazado. Puedes intentar de nuevo.');

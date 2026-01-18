@@ -30,6 +30,8 @@
 - Transacciones DB para pago+asignación
 - Idempotencia estricta en webhooks
 - Trazabilidad obligatoria: order_events
+- Enums como fuente de verdad para UI (Filament): `HasLabel` / `HasColor` / `HasIcon` para badges consistentes y sin lógica duplicada en Resources.
+- Identificadores: PK interna `id` (autoincrement) + `ulid` y códigos humanos (`order_number`, `support_code`) para referencias externas/soporte.
 
 ## 4) Módulos
 - Raffles: gestión de sorteos, paquetes e imágenes

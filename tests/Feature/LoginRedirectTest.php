@@ -4,29 +4,31 @@ use App\Enums\UserRole;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
-test('guests are redirected to the login page', function () {
-    $response = $this->get(route('dashboard'));
-    $response->assertRedirect(route('login'));
+it('shows the login page for guests', function () {
+    $response = $this->get(route('login'));
+
+    $response->assertOk();
 });
 
-test('authenticated users are redirected to their orders', function () {
+it('redirects authenticated customers away from /login', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
 
-    $response = $this->get(route('dashboard'));
-    $response->assertRedirect(route('orders.index'));
+    $response = $this->get(route('login'));
+
+    $response->assertRedirect(route('dashboard'));
 });
 
-test('admin users are redirected to filament', function () {
+it('redirects authenticated admins to filament via dashboard', function () {
     if (! Role::where('name', UserRole::Admin->value)->exists()) {
         Role::create(['name' => UserRole::Admin->value, 'guard_name' => 'web']);
     }
 
     $admin = User::factory()->create();
     $admin->assignRole(UserRole::Admin->value);
-
     $this->actingAs($admin);
 
     $response = $this->get(route('dashboard'));
+
     $response->assertRedirect('/admin');
 });

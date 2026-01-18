@@ -5,7 +5,35 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-01-18
+
+### Added - Sprint 4: Asignación de Tickets & MVP Operativo
+
+#### Sistema de Asignación de Tickets
+- `TicketAssignmentService` - Servicio para asignar tickets automáticamente:
+  - `assignForOrder()`: Asigna tickets para órdenes pagadas
+  - `assignForOrderItem()`: Asignación por item con soporte para métodos secuencial/aleatorio
+  - Idempotencia: llamadas múltiples no duplican tickets
+  - Soporte para órdenes de invitados (user_id nullable)
+  - Logging de eventos en OrderEvent (TICKETS_ASSIGNED, TICKETS_FAILED)
+  - Manejo de colisiones de códigos únicos por sorteo
+
+#### Vista de Tickets para Usuario
+- Página de orden (`/mis-compras/{order}`) muestra tickets asignados:
+  - Grid de números de boleto formateados
+  - Indicador de tickets ganadores con highlight
+  - Mensaje de espera si tickets están siendo asignados
+
+#### Tests
+- `TicketAssignmentServiceTest` con 3 tests:
+  - Asignación secuencial para órdenes pagadas
+  - Idempotencia ante llamadas múltiples
+  - Asignación para órdenes de invitados
+
+### Fixed
+- Corregido texto duplicado en hero de página de detalle de sorteo cuando no hay imagen primaria
+
+---
 
 ### Added - Sprint 3: Integración de Pagos con Wompi
 
@@ -16,6 +44,12 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Configuración dinámica desde BD
 - Interfaz `PaymentProviderInterface` para implementar nuevos proveedores
 - DTO `PaymentIntentData` para datos de checkout (amount, signature, widget_url, etc.)
+
+#### Filament (Enums)
+- Enums de estado/proveedor implementan `HasLabel`, `HasColor` y `HasIcon` para centralizar badge label/color/icon:
+  - `OrderStatus`, `PaymentStatus`, `RaffleStatus`, `WinningConditionType`, `PaymentProvider`, `TicketAssignmentMethod`, `UserRole`
+- Resources/RelationManagers/Infolists simplificados para usar el enum como state (sin `match` duplicados en `->color()` / `->formatStateUsing()`).
+- Tests unitarios en Pest para asegurar contratos y valores esperados (`tests/Unit/Enums/*`).
 
 #### Integración Wompi
 - `WompiPaymentProvider` - Implementación completa:

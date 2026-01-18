@@ -119,6 +119,32 @@ class OrderInfolist
                                     ]),
                             ]),
 
+                        // Tab 3: Tickets
+                        Tabs\Tab::make('Tickets')
+                            ->icon('heroicon-o-ticket')
+                            ->badge(fn ($record) => $record->tickets->count())
+                            ->visible(fn ($record) => $record->isPaid())
+                            ->schema([
+                                RepeatableEntry::make('tickets')
+                                    ->label('')
+                                    ->columns(3)
+                                    ->schema([
+                                        TextEntry::make('raffle.title')
+                                            ->label('Sorteo'),
+
+                                        TextEntry::make('formatted_code')
+                                            ->label('Ticket')
+                                            ->badge()
+                                            ->copyable(),
+
+                                        TextEntry::make('is_winner')
+                                            ->label('Ganador')
+                                            ->badge()
+                                            ->formatStateUsing(fn (bool $state): string => $state ? 'Sí' : 'No')
+                                            ->color(fn (bool $state): string => $state ? 'success' : 'gray'),
+                                    ]),
+                            ]),
+
                         // Tab 3: Transacciones de pago
                         Tabs\Tab::make('Transacciones')
                             ->icon('heroicon-o-credit-card')

@@ -2,7 +2,7 @@
     {{-- Full-Width Hero Header --}}
     <div class="relative w-full h-[350px] lg:h-[450px] overflow-hidden -mx-4 md:-mx-10 -mt-8" style="width: calc(100% + 2rem); margin-left: -1rem; margin-right: -1rem;">
         @php
-            $heroImage = $raffle->primaryImage?->url ?? 'https://placehold.co/1200x600/1a2e1a/13ec13?text=' . urlencode($raffle->title);
+            $heroImage = $raffle->primaryImage?->url ?? 'https://placehold.co/1200x600/1a2e1a/1a2e1a';
         @endphp
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(16, 34, 16, 0.95) 0%, rgba(16, 34, 16, 0.4) 60%, rgba(0, 0, 0, 0) 100%), url('{{ $heroImage }}');"></div>
         <div class="relative max-w-[1280px] mx-auto h-full flex flex-col justify-end px-4 md:px-10 pb-8 lg:pb-12">

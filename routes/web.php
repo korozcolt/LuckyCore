@@ -51,7 +51,15 @@ Route::get('/orden/{order:ulid}', OrdersShow::class)->name('orders.confirmation'
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', function () {
+        $user = auth()->user();
+
+        if ($user instanceof \App\Models\User && ($user->isSupport() || $user->isAdmin() || $user->isSuperAdmin())) {
+            return redirect('/admin');
+        }
+
+        return redirect()->route('orders.index');
+    })->name('dashboard');
 
     // Orders (user's order history)
     Route::prefix('mis-compras')->name('orders.')->group(function () {

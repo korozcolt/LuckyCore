@@ -38,6 +38,7 @@ class Show extends Component
             'items.raffle',
             'items.package',
             'transactions',
+            'tickets.raffle',
             'events' => fn ($q) => $q->orderBy('created_at', 'desc'),
         ]);
     }
@@ -45,6 +46,6 @@ class Show extends Component
     public function render(): View
     {
         return view('livewire.pages.orders.show')
-            ->layout('layouts.public', ['title' => 'Orden #' . $this->order->order_number]);
+            ->layout('layouts.public', ['title' => 'Orden #'.$this->order->order_number]);
     }
 }

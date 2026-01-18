@@ -141,26 +141,35 @@
             </div>
 
             {{-- Tickets (if paid) --}}
-            @if($order->isPaid() && $order->tickets->count() > 0)
+            @if($order->isPaid())
                 <div class="bg-white dark:bg-white/5 rounded-xl border border-[#dbe6db] dark:border-white/10 p-6">
                     <h2 class="text-[#111811] dark:text-white font-bold text-xl mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-[#13ec13]">receipt</span>
                         Tus Números de Boleto
                     </h2>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                        @foreach($order->tickets as $ticket)
-                            <div class="p-3 bg-[#f0f4f0] dark:bg-white/5 rounded-lg text-center {{ $ticket->is_winner ? 'ring-2 ring-[#13ec13] bg-[#13ec13]/10' : '' }}">
-                                <p class="text-[#111811] dark:text-white font-mono font-bold text-lg">{{ $ticket->formatted_code }}</p>
-                                @if($ticket->is_winner)
-                                    <p class="text-[#13ec13] text-xs font-semibold mt-1 flex items-center justify-center gap-1">
-                                        <span class="material-symbols-outlined text-sm">emoji_events</span>
-                                        Ganador
-                                    </p>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
+                    @if($order->tickets->isEmpty())
+                        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                            <p class="text-blue-800 dark:text-blue-400 text-sm flex items-center gap-2">
+                                <span class="material-symbols-outlined">schedule</span>
+                                Estamos asignando tus tickets. Actualiza esta página en unos momentos.
+                            </p>
+                        </div>
+                    @else
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                            @foreach($order->tickets as $ticket)
+                                <div class="p-3 bg-[#f0f4f0] dark:bg-white/5 rounded-lg text-center {{ $ticket->is_winner ? 'ring-2 ring-[#13ec13] bg-[#13ec13]/10' : '' }}">
+                                    <p class="text-[#111811] dark:text-white font-mono font-bold text-lg">{{ $ticket->formatted_code }}</p>
+                                    @if($ticket->is_winner)
+                                        <p class="text-[#13ec13] text-xs font-semibold mt-1 flex items-center justify-center gap-1">
+                                            <span class="material-symbols-outlined text-sm">emoji_events</span>
+                                            Ganador
+                                        </p>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             @endif
         </div>

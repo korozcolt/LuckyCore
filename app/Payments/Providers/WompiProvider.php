@@ -7,10 +7,12 @@ namespace App\Payments\Providers;
 use App\Enums\PaymentProvider;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use App\Models\OrderEvent;
 use App\Models\PaymentTransaction;
 use App\Payments\DTOs\PaymentIntentData;
 use App\Payments\DTOs\WebhookResult;
 use App\Payments\Exceptions\InvalidWebhookSignatureException;
+use App\Services\TicketAssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -235,12 +237,47 @@ class WompiProvider extends AbstractPaymentProvider
                 'completed_at' => $status->isFinal() ? now() : null,
             ]);
 
+            OrderEvent::log(
+                order: $transaction->order,
+                eventType: OrderEvent::WEBHOOK_RECEIVED,
+                description: 'Webhook recibido desde Wompi',
+                metadata: [
+                    'provider_transaction_id' => $providerTransactionId,
+                    'status' => $status->value,
+                ],
+                transaction: $transaction,
+                actorType: OrderEvent::ACTOR_WEBHOOK,
+            );
+
             // Update order status if payment approved
             if ($status === PaymentStatus::Approved) {
                 $transaction->order->update([
                     'status' => \App\Enums\OrderStatus::Paid,
                     'paid_at' => now(),
                 ]);
+
+                OrderEvent::log(
+                    order: $transaction->order,
+                    eventType: OrderEvent::PAYMENT_APPROVED,
+                    description: 'Pago aprobado',
+                    metadata: [
+                        'provider_transaction_id' => $providerTransactionId,
+                    ],
+                    transaction: $transaction,
+                    actorType: OrderEvent::ACTOR_WEBHOOK,
+                );
+
+                app(TicketAssignmentService::class)->assignForOrder($transaction->order);
+
+                $transaction->order->refresh();
+                if ($transaction->order->allTicketsAssigned()) {
+                    OrderEvent::log(
+                        order: $transaction->order,
+                        eventType: OrderEvent::ORDER_COMPLETED,
+                        description: 'Orden completada',
+                        actorType: OrderEvent::ACTOR_SYSTEM,
+                    );
+                }
             }
         });
 
@@ -291,6 +328,17 @@ class WompiProvider extends AbstractPaymentProvider
                     'provider_response' => $response,
                     'completed_at' => $status->isFinal() ? now() : null,
                 ]);
+
+                if ($status === PaymentStatus::Approved && (! $transaction->order->isPaid())) {
+                    DB::transaction(function () use ($transaction): void {
+                        $transaction->order->update([
+                            'status' => \App\Enums\OrderStatus::Paid,
+                            'paid_at' => now(),
+                        ]);
+
+                        app(TicketAssignmentService::class)->assignForOrder($transaction->order);
+                    });
+                }
             }
 
             return WebhookResult::success(
