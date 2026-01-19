@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Resources\Tickets\Pages;
+
+use App\Filament\Resources\Tickets\TicketResource;
+use Filament\Resources\Pages\ListRecords;
+
+class ListTickets extends ListRecords
+{
+    protected static string $resource = TicketResource::class;
+
+    protected static ?string $title = 'Tickets';
+
+    public function getBreadcrumb(): string
+    {
+        return 'Listado';
+    }
+}
