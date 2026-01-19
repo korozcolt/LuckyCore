@@ -75,15 +75,15 @@ class Raffle extends Model
         static::creating(function (Raffle $raffle) {
             $raffle->ulid ??= (string) Str::ulid();
             $raffle->slug ??= Str::slug($raffle->title);
-            
+
             // Set default ticket configuration if not provided
-            if (!isset($raffle->ticket_digits)) {
+            if (! isset($raffle->ticket_digits)) {
                 $raffle->ticket_digits = 5;
             }
-            if (!isset($raffle->ticket_min_number)) {
+            if (! isset($raffle->ticket_min_number)) {
                 $raffle->ticket_min_number = 1;
             }
-            if (!isset($raffle->ticket_max_number)) {
+            if (! isset($raffle->ticket_max_number)) {
                 // Calculate max number based on digits: 5 digits = 99999, 6 digits = 999999, etc.
                 $raffle->ticket_max_number = (int) str_repeat('9', $raffle->ticket_digits);
             }
@@ -149,6 +149,16 @@ class Raffle extends Model
         return $this->hasMany(RafflePrize::class)->where('is_active', true)->orderBy('sort_order')->orderBy('prize_position');
     }
 
+    public function winners(): HasMany
+    {
+        return $this->hasMany(Winner::class)->orderBy('prize_position');
+    }
+
+    public function publishedWinners(): HasMany
+    {
+        return $this->hasMany(Winner::class)->where('is_published', true)->orderBy('prize_position');
+    }
+
     // Computed attributes
 
     public function getAvailableTicketsAttribute(): int
@@ -167,7 +177,7 @@ class Raffle extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return '$' . number_format($this->ticket_price / 100, 0, ',', '.');
+        return '$'.number_format($this->ticket_price / 100, 0, ',', '.');
     }
 
     // Query scopes

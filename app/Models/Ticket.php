@@ -74,7 +74,16 @@ class Ticket extends Model
     {
         // Format ticket code for display using raffle's ticket_digits configuration
         $digits = $this->raffle->ticket_digits ?? 5;
+
         return str_pad($this->code, $digits, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Alias for code - used by WinnerCalculationService.
+     */
+    public function getTicketNumberAttribute(): ?string
+    {
+        return $this->code;
     }
 
     // Query scopes

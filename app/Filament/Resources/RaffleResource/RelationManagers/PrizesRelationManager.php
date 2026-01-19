@@ -8,8 +8,13 @@ use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -34,20 +39,20 @@ class PrizesRelationManager extends RelationManager
     {
         return $schema
             ->schema([
-                Forms\Components\Section::make('Información del premio')
+                Section::make('Información del premio')
                     ->schema([
-                        Forms\Components\TextInput::make('name')
+                        TextInput::make('name')
                             ->label('Nombre del premio')
                             ->required()
                             ->maxLength(255)
                             ->placeholder('Ej: Primer Premio, Premio Especial'),
 
-                        Forms\Components\Textarea::make('description')
+                        Textarea::make('description')
                             ->label('Descripción')
                             ->rows(2)
                             ->maxLength(500),
 
-                        Forms\Components\TextInput::make('prize_value')
+                        TextInput::make('prize_value')
                             ->label('Valor del premio')
                             ->required()
                             ->numeric()
@@ -55,7 +60,7 @@ class PrizesRelationManager extends RelationManager
                             ->suffix('COP')
                             ->helperText('Valor monetario del premio'),
 
-                        Forms\Components\TextInput::make('prize_position')
+                        TextInput::make('prize_position')
                             ->label('Posición')
                             ->required()
                             ->numeric()
@@ -65,10 +70,10 @@ class PrizesRelationManager extends RelationManager
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Condiciones de ganancia')
+                Section::make('Condiciones de ganancia')
                     ->description('Define cómo se determina el ganador de este premio')
                     ->schema([
-                        Forms\Components\Select::make('winning_conditions.type')
+                        Select::make('winning_conditions.type')
                             ->label('Tipo de condición')
                             ->options(WinningConditionType::class)
                             ->required()
@@ -76,13 +81,13 @@ class PrizesRelationManager extends RelationManager
                             ->helperText(fn ($state) => $state ?
                                 WinningConditionType::tryFrom($state)?->getDescription() : 'Selecciona un tipo'),
 
-                        Forms\Components\TextInput::make('winning_conditions.digit_count')
+                        TextInput::make('winning_conditions.digit_count')
                             ->label('Cantidad de dígitos')
                             ->numeric()
                             ->minValue(1)
                             ->maxValue(10)
                             ->default(2)
-                            ->visible(fn (Forms\Get $get) => in_array($get('winning_conditions.type'), [
+                            ->visible(fn (Get $get) => in_array($get('winning_conditions.type'), [
                                 WinningConditionType::LastDigits->value,
                                 WinningConditionType::FirstDigits->value,
                             ]))
@@ -90,15 +95,15 @@ class PrizesRelationManager extends RelationManager
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Configuración')
+                Section::make('Configuración')
                     ->schema([
-                        Forms\Components\TextInput::make('sort_order')
+                        TextInput::make('sort_order')
                             ->label('Orden de visualización')
                             ->numeric()
                             ->default(0)
                             ->helperText('Para ordenar los premios en la vista pública'),
 
-                        Forms\Components\Toggle::make('is_active')
+                        Toggle::make('is_active')
                             ->label('Activo')
                             ->default(true)
                             ->helperText('Los premios inactivos no se muestran ni se calculan'),

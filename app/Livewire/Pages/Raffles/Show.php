@@ -30,6 +30,8 @@ class Show extends Component
             'images' => fn ($q) => $q->orderBy('sort_order'),
             'packages' => fn ($q) => $q->active()->orderBy('sort_order'),
             'activePrizes' => fn ($q) => $q->orderBy('sort_order')->orderBy('prize_position'),
+            'result',
+            'publishedWinners' => fn ($q) => $q->with(['testimonial' => fn ($t) => $t->approved()]),
         ]);
 
         // Pre-select recommended package if available

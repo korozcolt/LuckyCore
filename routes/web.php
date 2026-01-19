@@ -9,6 +9,7 @@ use App\Livewire\Pages\Orders\Show as OrdersShow;
 use App\Livewire\Pages\Payment\Index as PaymentIndex;
 use App\Livewire\Pages\Raffles\Index as RafflesIndex;
 use App\Livewire\Pages\Raffles\Show as RafflesShow;
+use App\Livewire\Pages\Winners;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::prefix('sorteos')->name('raffles.')->group(function () {
 
 // CMS Pages
 Route::get('/pagina/{slug}', CmsShow::class)->name('page.show');
+
+// Winners
+Route::get('/ganadores', Winners::class)->name('winners');
 
 // Cart
 Route::get('/carrito', CartIndex::class)->name('cart');

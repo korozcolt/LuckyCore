@@ -240,6 +240,127 @@
                 </div>
             @endif
 
+            {{-- Winners Section (for completed raffles) --}}
+            @if($raffle->status->value === 'completed' && $raffle->publishedWinners->count() > 0)
+                <div class="pt-6">
+                    <div class="border-l-4 border-[#13ec13] pl-4 mb-6">
+                        <h2 class="text-[#111811] dark:text-white text-2xl font-extrabold tracking-tight">Ganadores del Sorteo</h2>
+                        <p class="text-[#618961] dark:text-white/60">Felicitamos a nuestros afortunados ganadores.</p>
+                    </div>
+
+                    {{-- Result Info --}}
+                    @if($raffle->result)
+                        <div class="bg-gradient-to-r from-[#13ec13]/10 to-transparent dark:from-[#13ec13]/5 rounded-xl p-5 mb-6 border border-[#13ec13]/20">
+                            <div class="flex items-center gap-4 flex-wrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[#13ec13]">casino</span>
+                                    <span class="text-[#618961] dark:text-white/60 text-sm">Número Ganador:</span>
+                                    <span class="text-2xl font-black text-[#13ec13]">{{ $raffle->result->lottery_number }}</span>
+                                </div>
+                                @if($raffle->result->lottery_name)
+                                    <div class="flex items-center gap-2 text-sm text-[#618961] dark:text-white/60">
+                                        <span class="material-symbols-outlined text-sm">verified</span>
+                                        <span>{{ $raffle->result->lottery_name }}</span>
+                                    </div>
+                                @endif
+                                @if($raffle->result->drawn_at)
+                                    <div class="flex items-center gap-2 text-sm text-[#618961] dark:text-white/60">
+                                        <span class="material-symbols-outlined text-sm">event</span>
+                                        <span>{{ $raffle->result->drawn_at->format('d/m/Y H:i') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Winners List --}}
+                    <div class="space-y-4">
+                        @foreach($raffle->publishedWinners as $winner)
+                            @php
+                                $prizeColors = [
+                                    1 => ['bg' => 'bg-gradient-to-r from-yellow-500 to-amber-600', 'icon' => 'emoji_events', 'border' => 'border-yellow-500/30'],
+                                    2 => ['bg' => 'bg-gradient-to-r from-gray-400 to-gray-500', 'icon' => 'military_tech', 'border' => 'border-gray-400/30'],
+                                    3 => ['bg' => 'bg-gradient-to-r from-orange-600 to-orange-700', 'icon' => 'workspace_premium', 'border' => 'border-orange-600/30'],
+                                ];
+                                $colors = $prizeColors[$winner->prize_position] ?? ['bg' => 'bg-gradient-to-r from-[#13ec13] to-green-600', 'icon' => 'star', 'border' => 'border-[#13ec13]/30'];
+                            @endphp
+                            <div class="bg-white dark:bg-[#1a2e1a] rounded-xl p-5 border {{ $colors['border'] }} hover:shadow-lg transition-shadow">
+                                <div class="flex items-center gap-4">
+                                    {{-- Prize Badge --}}
+                                    <div class="{{ $colors['bg'] }} text-white size-14 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                        <span class="material-symbols-outlined text-2xl">{{ $colors['icon'] }}</span>
+                                    </div>
+
+                                    {{-- Winner Info --}}
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <h3 class="text-lg font-bold text-[#111811] dark:text-white">{{ $winner->display_name }}</h3>
+                                            @if($winner->prize_position <= 3)
+                                                <span class="text-xs font-bold uppercase px-2 py-0.5 rounded-full {{ $winner->prize_position === 1 ? 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400' : ($winner->prize_position === 2 ? 'bg-gray-400/20 text-gray-600 dark:text-gray-300' : 'bg-orange-500/20 text-orange-600 dark:text-orange-400') }}">
+                                                    {{ $winner->prize_position }}° Lugar
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <p class="text-sm text-[#618961] dark:text-white/60 mb-1">{{ $winner->prize_name }}</p>
+                                        <div class="flex items-center gap-3 text-xs text-[#618961] dark:text-white/50">
+                                            <span class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-sm text-[#13ec13]">confirmation_number</span>
+                                                <span class="font-mono font-bold">{{ $winner->ticket_number }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {{-- Prize Value --}}
+                                    <div class="text-right flex-shrink-0">
+                                        <p class="text-xl font-black text-[#13ec13]">{{ $winner->formatted_prize_value }}</p>
+                                        <p class="text-xs text-[#618961] dark:text-white/50">Premio</p>
+                                    </div>
+                                </div>
+
+                                {{-- Testimonial (if approved) --}}
+                                @if($winner->testimonial && $winner->testimonial->is_approved)
+                                    <div class="mt-4 pt-4 border-t border-[#dbe6db] dark:border-[#2a442a]">
+                                        <div class="flex items-start gap-3">
+                                            @if($winner->testimonial->photo_url)
+                                                <img
+                                                    src="{{ $winner->testimonial->photo_url }}"
+                                                    alt="Testimonio de {{ $winner->display_name }}"
+                                                    class="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                                                >
+                                            @endif
+                                            <div class="flex-1">
+                                                <p class="text-sm text-[#618961] dark:text-white/70 italic">
+                                                    "{{ $winner->testimonial->comment }}"
+                                                </p>
+                                                @if($winner->testimonial->rating)
+                                                    <div class="flex items-center gap-0.5 mt-2">
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            <span class="material-symbols-outlined text-sm {{ $i <= $winner->testimonial->rating ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-600' }}">star</span>
+                                                        @endfor
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- Link to Winners Page --}}
+                    <div class="mt-6 text-center">
+                        <a
+                            href="{{ route('winners') }}"
+                            class="inline-flex items-center gap-2 text-[#13ec13] hover:underline font-medium"
+                            wire:navigate
+                        >
+                            Ver todos los ganadores
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            @endif
+
             {{-- FAQ Section --}}
             <div class="pt-6 space-y-6">
                 <h3 class="text-xl font-bold text-[#111811] dark:text-white border-b border-[#dbe6db] dark:border-[#2a442a] pb-4">Preguntas Frecuentes</h3>
