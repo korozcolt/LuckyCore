@@ -69,8 +69,7 @@ class RaffleResource extends Resource
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn ($state, Schemas\Components\Utilities\Set $set) =>
-                                                $set('slug', Str::slug($state))
+                                            ->afterStateUpdated(fn ($state, Schemas\Components\Utilities\Set $set) => $set('slug', Str::slug($state))
                                             ),
 
                                         Forms\Components\TextInput::make('slug')
@@ -134,8 +133,7 @@ class RaffleResource extends Resource
 
                                         Forms\Components\Placeholder::make('available_tickets')
                                             ->label('Tickets disponibles')
-                                            ->content(fn (?Raffle $record) =>
-                                                $record ? number_format($record->available_tickets) : '-'
+                                            ->content(fn (?Raffle $record) => $record ? number_format($record->available_tickets) : '-'
                                             ),
                                     ]),
 
@@ -303,15 +301,14 @@ class RaffleResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('ticket_price')
-                    ->label('Precio')
+                    ->label('Precio/Boleto')
                     ->money('COP')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('sold_percentage')
                     ->label('Vendido')
                     ->suffix('%')
-                    ->sortable(query: fn (Builder $query, string $direction) =>
-                        $query->orderByRaw('(sold_tickets / total_tickets) ' . $direction)
+                    ->sortable(query: fn (Builder $query, string $direction) => $query->orderByRaw('(sold_tickets / total_tickets) '.$direction)
                     ),
 
                 Tables\Columns\TextColumn::make('total_tickets')
@@ -380,6 +377,7 @@ class RaffleResource extends Resource
             RelationManagers\PackagesRelationManager::class,
             RelationManagers\PrizesRelationManager::class,
             RelationManagers\ImagesRelationManager::class,
+            RelationManagers\WinnersRelationManager::class,
         ];
     }
 

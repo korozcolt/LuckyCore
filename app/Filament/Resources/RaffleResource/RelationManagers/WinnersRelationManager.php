@@ -10,8 +10,10 @@ use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
@@ -81,6 +83,14 @@ class WinnersRelationManager extends RelationManager
                 Tables\Columns\IconColumn::make('is_published')
                     ->label('Publicado')
                     ->boolean(),
+
+                Tables\Columns\ImageColumn::make('photos')
+                    ->label('Fotos')
+                    ->disk('public')
+                    ->circular()
+                    ->stacked()
+                    ->limit(3)
+                    ->limitedRemainingText(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha')
@@ -155,6 +165,16 @@ class WinnersRelationManager extends RelationManager
                                     ->columnSpanFull(),
                             ])
                             ->columns(2),
+
+                        Section::make('Fotos de evidencia')
+                            ->schema([
+                                ImageEntry::make('photos')
+                                    ->label('')
+                                    ->disk('public')
+                                    ->height(150)
+                                    ->columnSpanFull(),
+                            ])
+                            ->visible(fn (Winner $record) => ! empty($record->photos)),
                     ]),
 
                 Action::make('togglePublish')
@@ -180,6 +200,32 @@ class WinnersRelationManager extends RelationManager
                         auth()->id(),
                         $data['notes'] ?? null
                     )),
+
+                Action::make('managePhotos')
+                    ->label('Fotos')
+                    ->icon('heroicon-o-photo')
+                    ->color('gray')
+                    ->fillForm(fn (Winner $record) => [
+                        'photos' => $record->photos ?? [],
+                    ])
+                    ->form([
+                        FileUpload::make('photos')
+                            ->label('Fotos de evidencia')
+                            ->helperText('Fotos del sorteo, entrega del premio, etc.')
+                            ->image()
+                            ->multiple()
+                            ->reorderable()
+                            ->disk('public')
+                            ->directory('winners')
+                            ->visibility('public')
+                            ->maxFiles(10)
+                            ->maxSize(5120),
+                    ])
+                    ->action(fn (Winner $record, array $data) => $record->update([
+                        'photos' => $data['photos'] ?? [],
+                    ]))
+                    ->modalHeading('Gestionar fotos del ganador')
+                    ->modalWidth('2xl'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

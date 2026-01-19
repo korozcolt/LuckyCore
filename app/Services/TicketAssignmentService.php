@@ -133,7 +133,7 @@ class TicketAssignmentService
     {
         $maxCode = Ticket::query()
             ->where('raffle_id', $raffleId)
-            ->max(DB::raw('CAST(code AS INTEGER)'));
+            ->max(DB::raw('CAST(code AS SIGNED)'));
 
         if (! $maxCode) {
             return $min;

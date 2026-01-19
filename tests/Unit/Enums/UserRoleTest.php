@@ -22,3 +22,22 @@ it('returns expected labels, colors and icons', function (UserRole $role, string
     'admin' => [UserRole::Admin, 'Administrador', 'success', 'heroicon-o-shield-check'],
     'super admin' => [UserRole::SuperAdmin, 'Super Administrador', 'danger', 'heroicon-o-shield-exclamation'],
 ]);
+
+it('only allows Admin and SuperAdmin to access admin panel', function (UserRole $role, bool $canAccess) {
+    expect($role->canAccessAdmin())->toBe($canAccess);
+})->with([
+    'customer cannot access' => [UserRole::Customer, false],
+    'support cannot access' => [UserRole::Support, false],
+    'admin can access' => [UserRole::Admin, true],
+    'super admin can access' => [UserRole::SuperAdmin, true],
+]);
+
+it('returns correct admin roles', function () {
+    $adminRoles = UserRole::adminRoles();
+
+    expect($adminRoles)->toHaveCount(2)
+        ->toContain(UserRole::Admin)
+        ->toContain(UserRole::SuperAdmin)
+        ->not->toContain(UserRole::Support)
+        ->not->toContain(UserRole::Customer);
+});

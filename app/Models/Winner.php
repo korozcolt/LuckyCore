@@ -42,6 +42,7 @@ class Winner extends Model
         'calculated_by',
         'delivered_by',
         'delivery_notes',
+        'photos',
     ];
 
     protected function casts(): array
@@ -57,6 +58,7 @@ class Winner extends Model
             'claimed_at' => 'datetime',
             'delivered_at' => 'datetime',
             'published_at' => 'datetime',
+            'photos' => 'array',
         ];
     }
 
@@ -138,6 +140,23 @@ class Winner extends Model
         $maskedName = substr($name, 0, 2).str_repeat('*', max(strlen($name) - 2, 3));
 
         return $maskedName.'@'.$domain;
+    }
+
+    /**
+     * Get full URLs for admin photos.
+     *
+     * @return array<string>
+     */
+    public function getPhotoUrlsAttribute(): array
+    {
+        if (empty($this->photos)) {
+            return [];
+        }
+
+        return array_map(
+            fn (string $path) => asset('storage/'.$path),
+            $this->photos
+        );
     }
 
     // Query scopes

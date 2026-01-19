@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\RaffleResource\Pages;
 
 use App\Filament\Resources\RaffleResource;
@@ -10,11 +12,20 @@ class EditRaffle extends EditRecord
 {
     protected static string $resource = RaffleResource::class;
 
+    protected static ?string $title = 'Editar Sorteo';
+
+    public function getBreadcrumb(): string
+    {
+        return 'Editar';
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\ViewAction::make()
+                ->label('Ver'),
+            Actions\DeleteAction::make()
+                ->label('Eliminar'),
         ];
     }
 

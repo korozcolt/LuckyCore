@@ -52,10 +52,11 @@ enum UserRole: string implements HasColor, HasIcon, HasLabel
 
     /**
      * Check if this role can access the admin panel.
+     * Solo SuperAdmin y Admin pueden acceder.
      */
     public function canAccessAdmin(): bool
     {
-        return in_array($this, [self::Support, self::Admin, self::SuperAdmin]);
+        return in_array($this, [self::Admin, self::SuperAdmin]);
     }
 
     /**
@@ -89,6 +90,6 @@ enum UserRole: string implements HasColor, HasIcon, HasLabel
      */
     public static function adminRoles(): array
     {
-        return [self::Support, self::Admin, self::SuperAdmin];
+        return [self::Admin, self::SuperAdmin];
     }
 }

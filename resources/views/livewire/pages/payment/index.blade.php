@@ -215,6 +215,24 @@
                     </div>
                 @endif
 
+                {{-- ePayco Widget --}}
+                @if($selectedProvider === 'epayco')
+                    <div class="bg-white dark:bg-white/5 rounded-xl border border-[#dbe6db] dark:border-white/10 p-6">
+                        <h2 class="text-[#111811] dark:text-white font-bold text-xl mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[#13ec13]">credit_card</span>
+                            Completa tu pago con ePayco
+                        </h2>
+
+                        {{-- ePayco Widget Container --}}
+                        <div wire:ignore class="min-h-[150px]" id="epayco-container">
+                            <div class="text-center py-8" id="epayco-status">
+                                <div id="epayco-spinner" class="animate-spin h-8 w-8 border-4 border-[#13ec13] border-t-transparent rounded-full mx-auto mb-4"></div>
+                                <p id="epayco-message" class="text-[#618961] dark:text-white/60">Cargando pasarela de pago...</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="mt-4">
                     <button
                         type="button"
@@ -284,6 +302,7 @@
 
     @script
     <script>
+        // Wompi Widget Handler
         $wire.on('init-wompi-widget', ({ config }) => {
             console.log('Wompi widget init event received', config);
 
@@ -326,6 +345,69 @@
                 document.head.appendChild(script);
             } else {
                 initWompiWidget();
+            }
+        });
+
+        // ePayco Widget Handler
+        $wire.on('init-epayco-widget', ({ config }) => {
+            console.log('ePayco widget init event received', config);
+
+            function initEpaycoWidget() {
+                const spinner = document.getElementById('epayco-spinner');
+                const message = document.getElementById('epayco-message');
+
+                if (spinner) spinner.style.display = 'none';
+                if (message) message.textContent = 'Abriendo ventana de pago...';
+
+                // Convert amount from cents to pesos for ePayco
+                const amountInPesos = (config.amount_in_cents / 100).toString();
+
+                const handler = ePayco.checkout.configure({
+                    key: config.public_key,
+                    test: config.extra?.test || false
+                });
+
+                const data = {
+                    // Required parameters
+                    name: config.extra?.name || 'Pago LuckyCore',
+                    description: config.extra?.description || 'Compra de boletos',
+                    invoice: config.extra?.invoice || config.reference,
+                    currency: config.currency.toLowerCase(),
+                    amount: amountInPesos,
+                    tax_base: config.extra?.tax_base || '0',
+                    tax: config.extra?.tax || '0',
+                    tax_ico: config.extra?.tax_ico || '0',
+                    country: config.extra?.country || 'co',
+                    lang: config.extra?.lang || 'es',
+
+                    // Optional customer data
+                    name_billing: config.extra?.customer_name || '',
+                    email_billing: config.extra?.customer_email || '',
+
+                    // Response URLs
+                    external: config.extra?.external || 'false',
+                    response: config.extra?.response || config.redirect_url,
+                    confirmation: config.extra?.confirmation || '',
+
+                    // Extra fields for tracking
+                    extra1: config.extra?.extra1 || '',
+                    extra2: config.extra?.extra2 || '',
+                    extra3: config.extra?.extra3 || ''
+                };
+
+                handler.open(data);
+            }
+
+            if (typeof ePayco === 'undefined') {
+                const script = document.createElement('script');
+                script.src = config.widget_url;
+                script.onload = function() {
+                    // Small delay to ensure ePayco is fully initialized
+                    setTimeout(initEpaycoWidget, 100);
+                };
+                document.head.appendChild(script);
+            } else {
+                initEpaycoWidget();
             }
         });
     </script>

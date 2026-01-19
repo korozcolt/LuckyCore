@@ -233,7 +233,7 @@ describe('EpaycoProvider', function () {
             $result = $this->provider->processWebhook($request);
 
             expect($result->success)->toBeFalse()
-                ->and($result->errorCode)->toBe('NOT_FOUND');
+                ->and($result->errorCode)->toBe('TRANSACTION_NOT_FOUND');
         });
 
         it('returns error when reference is missing', function () {
@@ -309,7 +309,7 @@ describe('EpaycoProvider', function () {
             $result = $this->provider->processWebhook($request);
 
             expect($result->success)->toBeTrue()
-                ->and($result->errorCode)->toBe('DUPLICATE');
+                ->and($result->errorCode)->toBe('DUPLICATE_WEBHOOK');
         });
 
         it('maps ePayco status codes correctly', function () {

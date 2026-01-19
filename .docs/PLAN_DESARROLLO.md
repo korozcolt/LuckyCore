@@ -22,9 +22,17 @@
 - Staging + UAT
 - Entrega MVP
 
-## Sprint 5 (1–1.5 semanas)
-- Providers adicionales: MercadoPago + ePayco
-- CMS editable (admin) + export CSV básico
+## Sprint 5 (1–1.5 semanas) ✅ COMPLETADO
+- ✅ Providers adicionales: MercadoPago + ePayco
+- ✅ CMS editable (admin)
+- ✅ Control de acceso admin: Solo SuperAdmin y Admin acceden al panel
+- ✅ Gestión de usuarios y roles desde el admin panel
+- ✅ Conversión automática de invitado a usuario registrado al comprar
+- ✅ Widgets de analíticas en dashboard:
+  - StatsOverview: 6 métricas generales
+  - TodaySales: ventas del día con comparación vs ayer
+  - OrdersChart: tendencia de órdenes 30 días
+  - PageViewsStats: tráfico del sitio (visitas, únicos, páginas top)
 
 ## Sprint 6 (1 semana)
 - Resultados: registrar, calcular ganador, publicar

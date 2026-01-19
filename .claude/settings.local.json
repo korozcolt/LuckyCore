@@ -47,7 +47,14 @@
       "Bash(php /Users/kronnos/Herd/LuckyCore/artisan test:*)",
       "WebFetch(domain:docs.epayco.com)",
       "WebFetch(domain:epayco.com)",
-      "Bash(php /Users/kronnos/Herd/LuckyCore/artisan make:test:*)"
+      "Bash(php /Users/kronnos/Herd/LuckyCore/artisan make:test:*)",
+      "mcp__laravel-boost__tinker",
+      "mcp__laravel-boost__browser-logs",
+      "mcp__chrome-devtools__fill",
+      "Bash(sqlite3:*)",
+      "mcp__laravel-boost__database-schema",
+      "mcp__chrome-devtools__get_console_message",
+      "Bash(git reset:*)"
     ]
   },
   "enabledMcpjsonServers": [

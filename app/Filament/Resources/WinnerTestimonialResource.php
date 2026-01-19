@@ -66,6 +66,7 @@ class WinnerTestimonialResource extends Resource
                         FileUpload::make('photo_path')
                             ->label('Foto')
                             ->image()
+                            ->disk('public')
                             ->directory('testimonials')
                             ->visibility('public')
                             ->maxSize(5120),

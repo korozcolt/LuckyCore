@@ -17,6 +17,13 @@ class ViewOrder extends ViewRecord
 {
     protected static string $resource = OrderResource::class;
 
+    protected static ?string $title = 'Ver Orden';
+
+    public function getBreadcrumb(): string
+    {
+        return 'Ver';
+    }
+
     protected function getHeaderActions(): array
     {
         return [

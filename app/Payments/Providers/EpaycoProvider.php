@@ -13,6 +13,7 @@ use App\Models\PaymentTransaction;
 use App\Payments\DTOs\PaymentIntentData;
 use App\Payments\DTOs\WebhookResult;
 use App\Payments\Exceptions\InvalidWebhookSignatureException;
+use App\Services\GuestConversionService;
 use App\Services\TicketAssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -370,6 +371,9 @@ class EpaycoProvider extends AbstractPaymentProvider
 
                 app(TicketAssignmentService::class)->assignForOrder($transaction->order);
 
+                // Convert guest to user after successful payment
+                app(GuestConversionService::class)->convertGuestToUser($transaction->order);
+
                 $transaction->order->refresh();
                 if ($transaction->order->allTicketsAssigned()) {
                     OrderEvent::log(
@@ -441,6 +445,9 @@ class EpaycoProvider extends AbstractPaymentProvider
                         ]);
 
                         app(TicketAssignmentService::class)->assignForOrder($transaction->order);
+
+                        // Convert guest to user after successful payment
+                        app(GuestConversionService::class)->convertGuestToUser($transaction->order);
                     });
                 }
             }

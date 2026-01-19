@@ -66,24 +66,42 @@ class OrderEvent extends Model
 
     // Event type constants
     public const ORDER_CREATED = 'order.created';
+
     public const PAYMENT_INTENT_CREATED = 'payment.intent_created';
+
     public const PAYMENT_REDIRECTED = 'payment.redirected';
+
     public const WEBHOOK_RECEIVED = 'webhook.received';
+
     public const PAYMENT_APPROVED = 'payment.approved';
+
     public const PAYMENT_REJECTED = 'payment.rejected';
+
     public const PAYMENT_EXPIRED = 'payment.expired';
+
     public const TICKETS_ASSIGNED = 'tickets.assigned';
+
     public const TICKETS_FAILED = 'tickets.failed';
+
     public const ORDER_COMPLETED = 'order.completed';
+
     public const ORDER_CANCELLED = 'order.cancelled';
+
+    public const USER_ASSOCIATED = 'user.associated';
+
     public const REFUND_INITIATED = 'refund.initiated';
+
     public const REFUND_COMPLETED = 'refund.completed';
+
     public const SUPPORT_NOTE = 'support.note';
 
     // Actor types
     public const ACTOR_SYSTEM = 'system';
+
     public const ACTOR_USER = 'user';
+
     public const ACTOR_ADMIN = 'admin';
+
     public const ACTOR_WEBHOOK = 'webhook';
 
     // Factory methods
