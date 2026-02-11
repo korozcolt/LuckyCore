@@ -17,31 +17,31 @@ class DatabaseSeeder extends Seeder
         // Seed roles and permissions first
         $this->call(RolesAndPermissionsSeeder::class);
 
-        // Create super admin user
-        $superAdmin = User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@luckycore.com',
-        ]);
+        // Create super admin user (idempotent: reuse if already exists)
+        $superAdmin = User::firstOrCreate(
+            ['email' => 'admin@luckycore.com'],
+            User::factory()->make(['name' => 'Super Admin', 'email' => 'admin@luckycore.com'])->getAttributes()
+        );
         $superAdmin->assignRole(UserRole::SuperAdmin->value);
 
         // Create test users for each role (only in local/testing)
         if (app()->environment(['local', 'testing'])) {
-            $admin = User::factory()->create([
-                'name' => 'Admin User',
-                'email' => 'admin@example.com',
-            ]);
+            $admin = User::firstOrCreate(
+                ['email' => 'admin@example.com'],
+                User::factory()->make(['name' => 'Admin User', 'email' => 'admin@example.com'])->getAttributes()
+            );
             $admin->assignRole(UserRole::Admin->value);
 
-            $support = User::factory()->create([
-                'name' => 'Support User',
-                'email' => 'support@example.com',
-            ]);
+            $support = User::firstOrCreate(
+                ['email' => 'support@example.com'],
+                User::factory()->make(['name' => 'Support User', 'email' => 'support@example.com'])->getAttributes()
+            );
             $support->assignRole(UserRole::Support->value);
 
-            $customer = User::factory()->create([
-                'name' => 'Test Customer',
-                'email' => 'customer@example.com',
-            ]);
+            $customer = User::firstOrCreate(
+                ['email' => 'customer@example.com'],
+                User::factory()->make(['name' => 'Test Customer', 'email' => 'customer@example.com'])->getAttributes()
+            );
             $customer->assignRole(UserRole::Customer->value);
 
             // Seed sample data for development

@@ -90,6 +90,17 @@ class Raffle extends Model
         });
 
         static::saving(function (Raffle $raffle) {
+            // Ensure ticket number defaults are set before validation (saving runs before creating)
+            if (! isset($raffle->ticket_digits)) {
+                $raffle->ticket_digits = 5;
+            }
+            if (! isset($raffle->ticket_min_number)) {
+                $raffle->ticket_min_number = 1;
+            }
+            if (! isset($raffle->ticket_max_number)) {
+                $raffle->ticket_max_number = (int) str_repeat('9', $raffle->ticket_digits);
+            }
+
             // Validate ticket number configuration
             if ($raffle->ticket_max_number < $raffle->ticket_min_number) {
                 throw new \InvalidArgumentException('ticket_max_number must be greater than or equal to ticket_min_number');
